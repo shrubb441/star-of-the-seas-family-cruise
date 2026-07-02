@@ -362,6 +362,34 @@
       color: white;
       margin-bottom: 5px;
     }
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin: 22px 0;
+    }
+    .package-card {
+      background: white;
+      color: var(--ink);
+      border-top: 7px solid var(--sea);
+      padding: 18px;
+      min-height: 178px;
+    }
+    .package-card:nth-child(2) { border-top-color: var(--reef); }
+    .package-card:nth-child(3) { border-top-color: var(--sun); }
+    .package-card h3 { margin: 0 0 8px; font-size: 22px; }
+    .package-card .price {
+      display: block;
+      font-size: 28px;
+      font-weight: 800;
+      margin: 6px 0 10px;
+    }
+    .package-card p { margin: 0; color: var(--muted); }
+    .package-note {
+      margin: 12px 0 0;
+      color: rgba(255,255,255,.72);
+      font-size: 14px;
+    }
     .sources {
       color: var(--muted);
       font-size: 14px;
@@ -373,7 +401,7 @@
       color: rgba(255,255,255,.78);
     }
     @media (max-width: 850px) {
-      .quickbar, .grid-2, .grid-3, .section-head, .port-map, .neighborhoods, .cost-cards {
+      .quickbar, .grid-2, .grid-3, .section-head, .port-map, .neighborhoods, .cost-cards, .package-grid {
         grid-template-columns: 1fr;
       }
       .image-strip, .photo-stack, .cococay-focus, .video-grid {
@@ -597,22 +625,40 @@
     <section id="costs" class="cost-wrap">
       <div class="section-head">
         <h2>Cost breakdown</h2>
-        <p>Each family/couple pays their own room, flights, hotel share and packages. No combined trip total shown.</p>
+        <p>Each family/couple pays their own room, flights, hotel share and packages. Package pricing is now calculated from the quoted per-person rates.</p>
+      </div>
+      <div class="package-grid">
+        <div class="package-card">
+          <h3>Deluxe drink package</h3>
+          <span class="price">$78/adult/day</span>
+          <p>Assumes both adults in each room buy it for all 7 cruise nights. Kids are not included in this package calculation.</p>
+        </div>
+        <div class="package-card">
+          <h3>Dining package</h3>
+          <span class="price">$357/adult + $76/child</span>
+          <p>Total package price, not daily. This is the specialty dining add-on for planned Chops, Hooked, Izumi and family dining moments.</p>
+        </div>
+        <div class="package-card">
+          <h3>The Key</h3>
+          <span class="price">$50/guest/day</span>
+          <p>Assumes every guest buys it for all 7 cruise nights. Useful for priority boarding perks, internet and smoother logistics.</p>
+        </div>
       </div>
       <table class="cost-table">
         <thead>
-          <tr><th>Family</th><th>Cruise</th><th>Flights</th><th>Hotel</th><th>Base total</th><th>Package estimate</th><th>Likely total</th></tr>
+          <tr><th>Family</th><th>Cruise</th><th>Flights</th><th>Hotel</th><th>Base total</th><th>Drink</th><th>Dining</th><th>The Key</th><th>Packages</th><th>Total</th></tr>
         </thead>
         <tbody>
-          <tr><td>Matt & Steph</td><td>$7,343.33</td><td>$2,700</td><td>$400</td><td>$10,443.33</td><td>$2.35k-$3.15k</td><td>$12.8k-$13.6k</td></tr>
-          <tr><td>Kris & Tariq</td><td>$8,603.44</td><td>$3,600</td><td>$400</td><td>$12,603.44</td><td>$2.7k-$3.7k</td><td>$15.3k-$16.3k</td></tr>
-          <tr><td>Peter & Judy</td><td>$6,702.22</td><td>$1,800</td><td>$400</td><td>$8,902.22</td><td>$2.0k-$2.6k</td><td>$10.9k-$11.5k</td></tr>
+          <tr><td>Matt & Steph</td><td>$7,343.33</td><td>$2,700</td><td>$400</td><td>$10,443.33</td><td>$1,092</td><td>$790</td><td>$1,050</td><td>$2,932</td><td>$13,375.33</td></tr>
+          <tr><td>Kris & Tariq</td><td>$8,603.44</td><td>$3,600</td><td>$400</td><td>$12,603.44</td><td>$1,092</td><td>$866</td><td>$1,400</td><td>$3,358</td><td>$15,961.44</td></tr>
+          <tr><td>Peter & Judy</td><td>$6,702.22</td><td>$1,800</td><td>$400</td><td>$8,902.22</td><td>$1,092</td><td>$714</td><td>$700</td><td>$2,506</td><td>$11,408.22</td></tr>
         </tbody>
       </table>
+      <p class="package-note">Math: drink package = 2 adults x $78 x 7 nights per couple; dining package = $357/adult + $76/child total; The Key = every guest x $50 x 7 nights.</p>
       <div class="cost-cards">
-        <div class="cost-card"><b>Matt & Steph</b><span class="muted">$12.8k-$13.6k likely total with packages</span></div>
-        <div class="cost-card"><b>Kris & Tariq</b><span class="muted">$15.3k-$16.3k likely total with packages</span></div>
-        <div class="cost-card"><b>Peter & Judy</b><span class="muted">$10.9k-$11.5k likely total with packages</span></div>
+        <div class="cost-card"><b>Matt & Steph</b><span class="muted">$13,375.33 with drink, dining and The Key</span></div>
+        <div class="cost-card"><b>Kris & Tariq</b><span class="muted">$15,961.44 with drink, dining and The Key</span></div>
+        <div class="cost-card"><b>Peter & Judy</b><span class="muted">$11,408.22 with drink, dining and The Key</span></div>
       </div>
     </section>
 
