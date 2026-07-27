@@ -426,85 +426,6 @@
       letter-spacing: .08em;
       color: var(--sea);
     }
-    .cost-wrap {
-      background: #0f2235;
-      color: white;
-    }
-    .cost-wrap .section-head p,
-    .cost-wrap .muted {
-      color: rgba(255,255,255,.72);
-    }
-    .cost-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-      color: var(--ink);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-    .cost-table th {
-      text-align: left;
-      background: var(--sun);
-      color: #15120a;
-      padding: 13px 12px;
-      font-size: 13px;
-    }
-    .cost-table td {
-      padding: 14px 12px;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 15px;
-    }
-    .cost-table td:first-child,
-    .cost-table td:last-child {
-      color: var(--ink);
-      font-weight: 800;
-    }
-    .cost-cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 22px;
-    }
-    .cost-card {
-      background: rgba(255,255,255,.09);
-      border: 1px solid rgba(255,255,255,.16);
-      padding: 20px;
-    }
-    .cost-card b {
-      display: block;
-      font-size: 24px;
-      color: white;
-      margin-bottom: 5px;
-    }
-    .package-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin: 22px 0;
-    }
-    .package-card {
-      background: white;
-      color: var(--ink);
-      border-top: 7px solid var(--sea);
-      padding: 18px;
-      min-height: 178px;
-    }
-    .package-card:nth-child(2) { border-top-color: var(--reef); }
-    .package-card:nth-child(3) { border-top-color: var(--sun); }
-    .package-card h3 { margin: 0 0 8px; font-size: 22px; }
-    .package-card .price {
-      display: block;
-      font-size: 28px;
-      font-weight: 800;
-      margin: 6px 0 10px;
-    }
-    .package-card p { margin: 0; color: var(--muted); }
-    .package-note {
-      margin: 12px 0 0;
-      color: rgba(255,255,255,.72);
-      font-size: 14px;
-    }
     .sources {
       color: var(--muted);
       font-size: 14px;
@@ -516,7 +437,7 @@
       color: rgba(255,255,255,.78);
     }
     @media (max-width: 850px) {
-      .quickbar, .grid-2, .grid-3, .snapshot-grid, .section-head, .port-map, .neighborhoods, .cost-cards, .package-grid, .restaurant-grid, .area-grid, .experience-grid, .room-layout {
+      .quickbar, .grid-2, .grid-3, .snapshot-grid, .section-head, .port-map, .neighborhoods, .restaurant-grid, .area-grid, .experience-grid, .room-layout {
         grid-template-columns: 1fr;
       }
       .image-strip, .photo-stack, .cococay-focus, .video-grid {
@@ -524,11 +445,6 @@
       }
       .photo-stack img:first-child, .photo-stack img, .image-strip img {
         height: 240px;
-      }
-      .cost-table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
       }
       .hero { min-height: 86vh; }
     }
@@ -543,8 +459,8 @@
       <div class="quickbar">
         <div class="quick"><b>9 guests</b><span>3 families, 3 balcony rooms</span></div>
         <div class="quick"><b>7 nights</b><span>Port Canaveral round trip</span></div>
-        <div class="quick"><b>Pay by family</b><span>each room priced separately</span></div>
-        <div class="quick"><b>Packages priced</b><span>drink, dining and The Key calculated by guest</span></div>
+        <div class="quick"><b>4 ports</b><span>CocoCay, Costa Maya, Roatan, Cozumel</span></div>
+        <div class="quick"><b>2 sea days</b><span>full run of the ship and its shows</span></div>
       </div>
     </div>
   </header>
@@ -559,7 +475,6 @@
     <a href="#shows">Shows</a>
     <a href="#food">Food</a>
     <a href="#rooms">Rooms</a>
-    <a href="#costs">Costs</a>
   </nav>
 
   <main>
@@ -603,7 +518,7 @@
         <p>Keep the ports simple, and make CocoCay the premium day with a real Coco Beach Club cabana target.</p>
       </div>
       <div class="port-map">
-        <article class="port"><h3>CocoCay <em>Mon Aug 9</em></h3><p>Royal's private island and the day to spend up for comfort.</p><ul><li>Coco Beach Club cabana or floating cabana</li><li>Beach Club infinity pool and upgraded lunch</li><li>Thrill Waterpark for kids/teens</li><li>Oasis Lagoon, Splashaway Bay, Chill Island</li></ul></article>
+        <article class="port"><h3>CocoCay <em>Mon Aug 9</em></h3><p>Royal's private island and the day to build around comfort.</p><ul><li>Coco Beach Club cabana or floating cabana</li><li>Beach Club infinity pool and upgraded lunch</li><li>Thrill Waterpark for kids/teens</li><li>Oasis Lagoon, Splashaway Bay, Chill Island</li></ul></article>
         <article class="port"><h3>Costa Maya <em>Wed Aug 11</em></h3><p>Lowest-stress port for mixed ages.</p><ul><li>Port pool and shopping</li><li>Maya Chan / beach club day</li><li>Chacchoben ruins</li><li>Keep it flexible if people are tired</li></ul></article>
         <article class="port"><h3>Roatan <em>Thu Aug 12</em></h3><p>The nature/adventure stop.</p><ul><li>West Bay beach</li><li>Reef snorkeling</li><li>Sloths, monkeys and island tour</li><li>Zipline or private driver day</li></ul></article>
         <article class="port"><h3>Cozumel <em>Fri Aug 13</em></h3><p>Best for an easy beach club or water day.</p><ul><li>Nachi Cocom / Mr. Sanchos style beach club</li><li>Snorkel or catamaran</li><li>Jeep/island tour</li><li>Ruins only if people want a longer day</li></ul></article>
@@ -615,7 +530,7 @@
       <div class="cococay-focus">
         <div class="panel accent sun">
           <h3>Cabana call</h3>
-          <p>Best target: Coco Beach Club cabana. Dream target: floating cabana if the price is not completely deranged.</p>
+          <p>Best target: Coco Beach Club cabana. Dream target: a floating cabana.</p>
           <p>Why: adults get a nicer base, kids still get island fun, and CocoCay becomes the premium anchor of the whole trip.</p>
         </div>
         <div class="panel accent reef">
@@ -669,7 +584,7 @@
         <article class="area-card"><img src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/icon/lifestyle-images/icon-of-the-seas-aquatheater-aquaaction-entertainment-aquadome.jpg?$800x450$" alt="AquaDome AquaTheater performance"><div><h3>AquaDome</h3><p>AquaTheater shows, ocean views, Overlook hangout, Hooked and AquaDome Market.</p></div></article>
         <article class="area-card"><img src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/onboard/experiences/central-park/central-park-night-time-lights.jpg?$800x450$" alt="Central Park at night"><div><h3>Central Park</h3><p>Quieter open-air garden, bars, specialty dining and night strolls.</p></div></article>
         <article class="area-card"><img src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/onboard/experiences/royal-promenade/symphony-of-the-seas-royal-promenade-night-time.jpg?$800x450$" alt="Royal Promenade"><div><h3>Royal Promenade</h3><p>Pearl, shopping, pizza, bars, music and people-watching in the main indoor spine.</p></div></article>
-        <article class="area-card"><img src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/accommodations/icon/loft-suite-balcony-ocean/icon-of-the-seas-loft-suite-living-room-balcony.jpg?$440x440$" alt="Suite neighborhood style lounge"><div><h3>Suite Neighborhood</h3><p>Private suite-only deck area and upscale retreat space. Nice, but not part of these balcony quotes.</p></div></article>
+        <article class="area-card"><img src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/accommodations/icon/loft-suite-balcony-ocean/icon-of-the-seas-loft-suite-living-room-balcony.jpg?$440x440$" alt="Suite neighborhood style lounge"><div><h3>Suite Neighborhood</h3><p>Private suite-only deck area and upscale retreat space. Nice, but not part of this trip's balcony rooms.</p></div></article>
       </div>
     </section>
 
@@ -697,14 +612,14 @@
         <article class="experience-card"><img src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/data/activity/entertainment-shows/broadway-show/back-to-the-future/images/back-to-the-future-broadway-show-logo-with-car-vertical-tile.jpg?$440x880$" alt="Back to the Future musical art"><div><h3>Back to the Future</h3><p>Royal Theater headline musical. This is the reserve-early show.</p></div></article>
         <article class="experience-card"><img src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/onboard/food-and-beverage/dueling-pianos/icon-of-the-seas-dueling-pianos-performance-cocktails-nightlife-club.jpg?$440x880$" alt="Dueling Pianos performance"><div><h3>Dueling Pianos</h3><p>Interactive sing-along piano bar energy for adults after dinner.</p></div></article>
         <article class="experience-card"><img src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/content/cross-linking/casino-excitement-playing-slots-games.jpg?$1024x700$" alt="Casino Royale slot machines"><div><h3>Casino Royale</h3><p>Slots, tables, tournaments and the grown-up late-night wander option.</p></div></article>
-        <article class="experience-card"><img src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/star-of-the-seas-empire-supper-club-woman-cheering-champagne.jpg?$520x520$" alt="Supper club performance and champagne"><div><h3>Lincoln Park Supper Club</h3><p>Dinner-and-show splurge with cocktails, live music and a more adult night out.</p></div></article>
+        <article class="experience-card"><img src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/star-of-the-seas-empire-supper-club-woman-cheering-champagne.jpg?$520x520$" alt="Supper club performance and champagne"><div><h3>Lincoln Park Supper Club</h3><p>Dinner-and-show night with cocktails, live music and a more adult evening out.</p></div></article>
       </div>
     </section>
 
     <section id="food">
       <div class="section-head">
         <h2>Food and premium dining</h2>
-        <p>No buffet sales pitch. This section is about the better dining targets and how to use the package without turning dinner into homework.</p>
+        <p>No buffet sales pitch. This section is about the better dining targets and how to book them without turning dinner into homework.</p>
       </div>
       <div class="restaurant-grid">
         <div class="restaurant-card"><span class="restaurant-tag">Steakhouse</span><h3>Chops Grille</h3><p>The obvious adult steak night. Best for a clean, predictable premium dinner.</p></div>
@@ -721,8 +636,8 @@
 
     <section id="rooms">
       <div class="section-head">
-        <h2>Rooms and quote details</h2>
-        <p>Ocean View Balcony quotes, with an actual balcony cabin photo and the room assignments from the PDFs. Fares and cabin numbers are from the original July 2027 quotes and still need re-quoting for Aug 8-15.</p>
+        <h2>Rooms</h2>
+        <p>Ocean View Balcony setup, with an actual balcony cabin photo and who is in which room.</p>
       </div>
       <div class="room-layout">
         <img class="room-photo" src="https://www.cruisedeckplans.com/DP/cabinpics/467/org/StaBal141-2604-1777854681.jpg" alt="Royal Caribbean ocean view balcony room">
@@ -733,52 +648,12 @@
         </div>
       </div>
       <div class="grid-3">
-        <div class="panel accent"><h3>Matt & Steph</h3><p>2 adults + 1 child<br>Room 10126, Forward, Deck 10<br><strong>$7,343.33 cruise quote</strong><br>$750 deposit</p></div>
-        <div class="panel accent reef"><h3>Kris & Tariq</h3><p>2 adults + 2 kids<br>Room 10128, Forward, Deck 10<br><strong>$8,603.44 cruise quote</strong><br>$1,000 deposit</p></div>
-        <div class="panel accent sun"><h3>Peter & Judy</h3><p>2 adults<br>Room 12574, Mid-ship, Deck 12<br><strong>$6,702.22 cruise quote</strong><br>$500 deposit</p></div>
+        <div class="panel accent"><h3>Matt & Steph</h3><p>2 adults + 1 child<br><strong>Room 10126</strong><br>Forward, Deck 10</p></div>
+        <div class="panel accent reef"><h3>Kris & Tariq</h3><p>2 adults + 2 kids<br><strong>Room 10128</strong><br>Forward, Deck 10</p></div>
+        <div class="panel accent sun"><h3>Peter & Judy</h3><p>2 adults<br><strong>Room 12574</strong><br>Mid-ship, Deck 12</p></div>
       </div>
     </section>
 
-    <section id="costs" class="cost-wrap">
-      <div class="section-head">
-        <h2>Cost breakdown</h2>
-        <p>Each family/couple pays their own room, flights, hotel share and packages. Package pricing is now calculated from the quoted per-person rates.</p>
-      </div>
-      <div class="package-grid">
-        <div class="package-card">
-          <h3>Deluxe drink package</h3>
-          <span class="price">$78/adult/day</span>
-          <p>Assumes both adults in each room buy it for all 7 cruise nights. Kids are not included in this package calculation.</p>
-        </div>
-        <div class="package-card">
-          <h3>Dining package</h3>
-          <span class="price">$357/adult + $76/child</span>
-          <p>Total package price, not daily. This is the specialty dining add-on for planned Chops, Hooked, Izumi and family dining moments.</p>
-        </div>
-        <div class="package-card">
-          <h3>The Key</h3>
-          <span class="price">$50/guest/day</span>
-          <p>Assumes every guest buys it for all 7 cruise nights. Useful for priority boarding perks, internet and smoother logistics.</p>
-        </div>
-      </div>
-      <table class="cost-table">
-        <thead>
-          <tr><th>Family</th><th>Cruise</th><th>Flights</th><th>Hotel</th><th>Base total</th><th>Drink</th><th>Dining</th><th>The Key</th><th>Packages</th><th>Total</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Matt & Steph</td><td>$7,343.33</td><td>$2,700</td><td>$400</td><td>$10,443.33</td><td>$1,092</td><td>$790</td><td>$1,050</td><td>$2,932</td><td>$13,375.33</td></tr>
-          <tr><td>Kris & Tariq</td><td>$8,603.44</td><td>$3,600</td><td>$400</td><td>$12,603.44</td><td>$1,092</td><td>$866</td><td>$1,400</td><td>$3,358</td><td>$15,961.44</td></tr>
-          <tr><td>Peter & Judy</td><td>$6,702.22</td><td>$1,800</td><td>$400</td><td>$8,902.22</td><td>$1,092</td><td>$714</td><td>$700</td><td>$2,506</td><td>$11,408.22</td></tr>
-        </tbody>
-      </table>
-      <p class="package-note">Math: drink package = 2 adults x $78 x 7 nights per couple; dining package = $357/adult + $76/child total; The Key = every guest x $50 x 7 nights.</p>
-      <p class="package-note">Note: the cruise fares and deposits shown here still come from the original July 2027 quotes. They need to be re-quoted for the Aug 8-15, 2027 sailing before anyone treats these totals as final.</p>
-      <div class="cost-cards">
-        <div class="cost-card"><b>Matt & Steph</b><span class="muted">$13,375.33 with drink, dining and The Key</span></div>
-        <div class="cost-card"><b>Kris & Tariq</b><span class="muted">$15,961.44 with drink, dining and The Key</span></div>
-        <div class="cost-card"><b>Peter & Judy</b><span class="muted">$11,408.22 with drink, dining and The Key</span></div>
-      </div>
-    </section>
   </main>
 
   <footer>
