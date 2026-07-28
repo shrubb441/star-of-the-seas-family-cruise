@@ -819,6 +819,8 @@
       gap: var(--gap);
     }
     .port {
+      display: flex;
+      flex-direction: column;
       background: var(--panel);
       border: 1px solid var(--line);
       border-top: 6px solid var(--sea);
@@ -833,6 +835,41 @@
     .port > p { margin: 0; color: var(--muted); font-size: 15.5px; }
     .port ul { margin: 14px 0 0; padding-left: 20px; }
     .port li { font-size: 14.5px; margin: 7px 0; color: var(--muted); }
+    /* only full view shows the video button, so only full view needs the gap */
+    html.mode-full .port ul { margin-bottom: 18px; }
+    /* pushed to the card foot so the buttons line up across the row */
+    .port-video {
+      margin-top: auto;
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 750;
+      font-size: 13.5px;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .port-video::before {
+      content: "";
+      flex: none;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 5.5px 0 5.5px 9px;
+      border-color: transparent transparent transparent var(--reef);
+    }
+    .port-video:hover {
+      transform: translateY(-2px);
+      border-color: var(--reef);
+      background: var(--paper-alt);
+    }
+    .port-video:focus-visible { outline: 3px solid var(--sea); outline-offset: 2px; }
 
     .image-strip {
       display: grid;
@@ -1317,6 +1354,7 @@
             <li>Thrill Waterpark for kids and teens</li>
             <li>Oasis Lagoon, Splashaway Bay, Chill Island</li>
           </ul>
+          <a class="port-video" data-full-only href="https://www.youtube.com/watch?v=ZMvG_L5Wo7Q" target="_blank" rel="noopener">What to do in CocoCay</a>
         </article>
         <article class="port">
           <span class="chip reef">Wed Aug 11</span>
@@ -1328,6 +1366,7 @@
             <li>Chacchoben ruins</li>
             <li>Keep it flexible if people are tired</li>
           </ul>
+          <a class="port-video" data-full-only href="https://www.youtube.com/watch?v=TiMfvLKtJqw" target="_blank" rel="noopener">What to do in Costa Maya</a>
         </article>
         <article class="port">
           <span class="chip green">Thu Aug 12</span>
@@ -1339,6 +1378,7 @@
             <li>Sloths, monkeys and island tour</li>
             <li>Zipline or private driver day</li>
           </ul>
+          <a class="port-video" data-full-only href="https://www.youtube.com/watch?v=7DhdaafqMfs" target="_blank" rel="noopener">What to do in Roat&aacute;n</a>
         </article>
         <article class="port">
           <span class="chip sun">Fri Aug 13</span>
@@ -1350,6 +1390,7 @@
             <li>Jeep or island tour</li>
             <li>Ruins only if people want a longer day</li>
           </ul>
+          <a class="port-video" data-full-only href="https://www.youtube.com/watch?v=o8p5Lfe00uM" target="_blank" rel="noopener">What to do in Cozumel</a>
         </article>
       </div>
 
