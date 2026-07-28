@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#0f2c47" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0a121c" media="(prefers-color-scheme: dark)">
   <meta property="og:title" content="Star of the Seas family cruise">
-  <meta property="og:description" content="August 8-15, 2027 Western Caribbean sailing for 6 adults and 3 kids.">
+  <meta property="og:description" content="August 8-15, 2027 Western Caribbean sailing for three families, in three rooms on Deck 10.">
   <meta property="og:type" content="website">
   <style>
     /* ---------------------------------------------------------------
@@ -606,7 +606,7 @@
       overflow: hidden;
       box-shadow: var(--shadow-sm);
     }
-    .room-figure img {
+    .room-figure > img {
       display: block;
       width: 100%;
       aspect-ratio: 16 / 10;
@@ -618,20 +618,90 @@
       color: var(--muted);
       border-top: 1px solid var(--line-soft);
     }
-    .plan {
-      display: block;
+    /* Click-to-load YouTube facade: shows the video's own thumbnail and only
+       swaps in the iframe once the user asks for it, so a page with a dozen
+       videos still loads fast. */
+    .video-lite {
+      position: absolute;
+      inset: 0;
       width: 100%;
-      height: auto;
-      background: var(--panel-soft);
+      height: 100%;
+      display: block;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: #0d1c2b;
+      color: #fff;
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+      overflow: hidden;
     }
-    .plan .wall  { fill: none; stroke: var(--ink); stroke-width: 2.5; opacity: .75; }
-    .plan .zone  { fill: var(--sea-tint); stroke: var(--sea); stroke-width: 1.5; }
-    .plan .zone.warm { fill: var(--sun-tint);  stroke: var(--sun); }
-    .plan .zone.cool { fill: var(--navy-tint); stroke: var(--muted); }
-    .plan .deck  { fill: var(--green-tint); stroke: var(--green); stroke-width: 1.5; }
-    .plan text  { fill: var(--ink-soft); font-family: var(--font); font-size: 12px; font-weight: 700; }
-    .plan text.sm { font-size: 10.5px; font-weight: 600; fill: var(--muted); }
-    .plan .arrow { stroke: var(--muted); stroke-width: 1.5; fill: none; }
+    .vl-thumb {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .85;
+      transition: opacity .2s ease, transform .35s ease;
+    }
+    .video-lite::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(to top, rgba(4, 12, 20, .88) 0%, rgba(4, 12, 20, .18) 55%, rgba(4, 12, 20, .10) 100%);
+    }
+    .video-lite:hover .vl-thumb { opacity: 1; transform: scale(1.04); }
+    .vl-play {
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+      width: 62px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(12, 22, 32, .74);
+      border: 1px solid rgba(255, 255, 255, .34);
+      backdrop-filter: blur(6px);
+      transition: background .18s ease, scale .18s ease;
+    }
+    .vl-play::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 52%;
+      translate: -50% -50%;
+      border-style: solid;
+      border-width: 8px 0 8px 14px;
+      border-color: transparent transparent transparent #fff;
+    }
+    .video-lite:hover .vl-play,
+    .video-lite:focus-visible .vl-play {
+      background: var(--reef);
+      scale: 1.08;
+    }
+    .vl-label {
+      position: absolute;
+      z-index: 2;
+      inset: auto 14px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.3;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, .6);
+    }
+    .vl-credit,
+    .restaurant-card .vl-credit,
+    .panel .vl-credit {
+      margin: 12px 0 0;
+      padding-top: 10px;
+      border-top: 1px solid var(--line-soft);
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .vl-credit a { color: inherit; }
 
     .feature-list {
       list-style: none;
@@ -743,24 +813,34 @@
       gap: var(--gap);
       margin-top: var(--gap);
     }
-    .image-strip img {
+    .image-strip > img {
       width: 100%;
       aspect-ratio: 16 / 9;
       object-fit: cover;
       border-radius: var(--r-lg);
       box-shadow: var(--shadow-sm);
     }
+    .image-strip > figure {
+      margin: 0;
+    }
+    .image-strip .video-frame {
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
 
     /* ---------------------------------------------------------------
        Cards with images
     ---------------------------------------------------------------- */
+    /* photos and video facades share one aspect ratio so mixed grids stay even */
     .card-media {
       width: 100%;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 16 / 9;
       object-fit: cover;
       display: block;
       background: var(--paper-alt);
     }
+    .card .video-frame { border-radius: 0; }
     .card-body { padding: 18px 20px 22px; }
     .card-body h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.15; }
     .card-body p  { margin: 0; color: var(--muted); font-size: 15px; }
@@ -779,9 +859,11 @@
       border: 1px solid var(--line);
       border-top: 6px solid var(--sea);
       border-radius: var(--r-lg);
-      padding: 22px;
       box-shadow: var(--shadow-sm);
+      overflow: hidden;
     }
+    .restaurant-card .video-frame { border-radius: 0; }
+    .rc-body { padding: 20px 22px 22px; }
     .restaurant-card:nth-child(2) { border-top-color: var(--reef); }
     .restaurant-card:nth-child(3) { border-top-color: var(--green); }
     .restaurant-card:nth-child(4) { border-top-color: var(--sun); }
@@ -922,7 +1004,7 @@
       <p class="eyebrow">Royal Caribbean Icon class &middot; trip brief</p>
       <h1>Star of the Seas family cruise</h1>
       <p class="hero-lede">
-        August 8&ndash;15, 2027 Western Caribbean sailing for 6 adults and 3 kids &mdash; built around
+        August 8&ndash;15, 2027 Western Caribbean sailing for three families &mdash; built around
         Bermuda flights, a Hyatt Place Cape Canaveral pre-night on Aug&nbsp;7, and three rooms
         together on Deck&nbsp;10.
       </p>
@@ -931,7 +1013,7 @@
         <a class="btn btn-ghost" href="#itinerary">Day-by-day itinerary</a>
       </div>
       <div class="quickbar">
-        <div class="quick"><b>9 guests</b><span>3 families &middot; 6 adults, 3 kids</span></div>
+        <div class="quick"><b>3 families</b><span>Matt &amp; Steph, Kris &amp; Tariq, Peter &amp; Judy</span></div>
         <div class="quick"><b>3 rooms</b><span>Deck 10 &middot; 2 balcony + 1 suite</span></div>
         <div class="quick"><b>7 nights</b><span>Port Canaveral round trip</span></div>
         <div class="quick countdown"><b id="countdown">&mdash;</b><span>until sail day</span></div>
@@ -1021,7 +1103,6 @@
           <div class="room-number">10524</div>
           <dl class="room-meta">
             <div><dt>Deck</dt><dd>Deck 10</dd></div>
-            <div><dt>Guests</dt><dd>2 adults + 1 child</dd></div>
             <div><dt>Type</dt><dd>Ocean View with Balcony</dd></div>
           </dl>
         </article>
@@ -1032,7 +1113,6 @@
           <div class="room-number">10526</div>
           <dl class="room-meta">
             <div><dt>Deck</dt><dd>Deck 10</dd></div>
-            <div><dt>Guests</dt><dd>2 adults + 2 kids</dd></div>
             <div><dt>Type</dt><dd>Ocean View with Balcony</dd></div>
           </dl>
         </article>
@@ -1043,48 +1123,9 @@
           <div class="room-number">10530</div>
           <dl class="room-meta">
             <div><dt>Deck</dt><dd>Deck 10</dd></div>
-            <div><dt>Guests</dt><dd>2 adults</dd></div>
             <div><dt>Type</dt><dd>Sky Junior Suite</dd></div>
           </dl>
         </article>
-      </div>
-
-      <div class="table-wrap">
-        <table class="ref">
-          <caption>Quick reference &mdash; print or screenshot this one</caption>
-          <thead>
-            <tr>
-              <th scope="col">Room</th>
-              <th scope="col">Deck</th>
-              <th scope="col">Guests</th>
-              <th scope="col">Occupancy</th>
-              <th scope="col">Room type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="num">10524</td>
-              <td>10</td>
-              <td>Matt &amp; Steph</td>
-              <td>2 adults + 1 child</td>
-              <td><span class="chip reef">Ocean View Balcony</span></td>
-            </tr>
-            <tr>
-              <td class="num">10526</td>
-              <td>10</td>
-              <td>Kris &amp; Tariq</td>
-              <td>2 adults + 2 kids</td>
-              <td><span class="chip">Ocean View Balcony</span></td>
-            </tr>
-            <tr>
-              <td class="num">10530</td>
-              <td>10</td>
-              <td>Peter &amp; Judy</td>
-              <td>2 adults</td>
-              <td><span class="chip sun">Sky Junior Suite</span></td>
-            </tr>
-          </tbody>
-        </table>
       </div>
 
       <p class="note">
@@ -1095,47 +1136,23 @@
 
       <h3 class="subhead">Room views</h3>
       <p>
-        What each of the two room types actually looks like, plus a plain-English layout so people
-        know what they&rsquo;re walking into.
+        Full walkthrough tours of both room types, filmed on Star of the Seas itself &mdash; so
+        nobody has to guess what they&rsquo;re walking into.
       </p>
 
       <!-- Ocean View Balcony -->
       <div class="roomtype">
         <div class="roomtype-media">
           <figure class="room-figure">
-            <img
-              alt="Ocean View Balcony stateroom on Star of the Seas"
-              loading="lazy" decoding="async"
-              data-fallback="hide"
-              src="https://www.cruisedeckplans.com/DP/cabinpics/467/org/StaBal141-2604-1777854681.jpg">
-            <figcaption>Ocean View Balcony stateroom &mdash; rooms 10524 and 10526.</figcaption>
-          </figure>
-          <figure class="room-figure">
-            <svg class="plan" viewBox="-72 0 492 265" role="img" aria-labelledby="planBalconyTitle planBalconyDesc">
-              <title id="planBalconyTitle">Ocean View Balcony layout</title>
-              <desc id="planBalconyDesc">Entry corridor, bathroom and closet near the door, bed and sofa in the main room, private balcony at the ocean end.</desc>
-              <rect class="wall" x="12" y="16" width="300" height="232" rx="6"></rect>
-              <rect class="zone cool" x="24" y="28" width="86" height="98" rx="4"></rect>
-              <text x="67" y="72" text-anchor="middle">Bath</text>
-              <text class="sm" x="67" y="88" text-anchor="middle">shower</text>
-              <rect class="zone cool" x="24" y="138" width="86" height="98" rx="4"></rect>
-              <text x="67" y="182" text-anchor="middle">Closet</text>
-              <text class="sm" x="67" y="198" text-anchor="middle">storage</text>
-              <rect class="zone" x="126" y="28" width="172" height="98" rx="4"></rect>
-              <text x="212" y="72" text-anchor="middle">Bed</text>
-              <text class="sm" x="212" y="88" text-anchor="middle">king or 2 twins</text>
-              <rect class="zone warm" x="126" y="138" width="100" height="46" rx="4"></rect>
-              <text class="sm" x="176" y="166" text-anchor="middle">Desk / vanity</text>
-              <rect class="zone warm" x="126" y="192" width="172" height="44" rx="4"></rect>
-              <text class="sm" x="212" y="219" text-anchor="middle">Sofa / extra sleeping</text>
-              <rect class="deck" x="326" y="28" width="80" height="208" rx="6"></rect>
-              <text x="366" y="126" text-anchor="middle">Balcony</text>
-              <text class="sm" x="366" y="144" text-anchor="middle">2 chairs</text>
-              <path class="arrow" d="M12 132 H-30 m10 -8 l-10 8 l10 8"></path>
-              <text class="sm" x="-64" y="118" text-anchor="start">Corridor</text>
-              <text class="sm" x="-64" y="152" text-anchor="start">entry</text>
-            </svg>
-            <figcaption>Typical Ocean View Balcony layout. Illustrative &mdash; not to scale.</figcaption>
+            <div class="video-frame">
+              <button type="button" class="video-lite" data-yt="4uQlkl7lilk" data-title="Star of the Seas Ocean View Balcony walkthrough tour" aria-label="Play video: Star of the Seas Ocean View Balcony walkthrough tour">
+                <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                     src="https://i.ytimg.com/vi/4uQlkl7lilk/hqdefault.jpg">
+                <span class="vl-play"></span>
+                <span class="vl-label">Star of the Seas &middot; Ocean View Balcony walkthrough</span>
+              </button>
+            </div>
+            <figcaption>Full 4K walkthrough of an Ocean View Balcony on Star of the Seas &mdash; the room type for 10524 and 10526. <a href="https://www.youtube.com/watch?v=4uQlkl7lilk" target="_blank" rel="noopener">Watch on YouTube</a></figcaption>
           </figure>
         </div>
         <div class="panel accent">
@@ -1157,42 +1174,15 @@
       <div class="roomtype">
         <div class="roomtype-media">
           <figure class="room-figure">
-            <img
-              alt="Junior suite stateroom on a Royal Caribbean Icon class ship"
-              loading="lazy" decoding="async"
-              data-fallback="hide"
-              src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/accommodations/icon/junior-suite-balcony-ocean/icon-of-the-seas-junior-suite-bedroom-living-area.jpg?$800x450$">
-            <figcaption>Junior suite interior &mdash; the style of room 10530.</figcaption>
-          </figure>
-          <figure class="room-figure">
-            <svg class="plan" viewBox="-72 0 542 265" role="img" aria-labelledby="planSuiteTitle planSuiteDesc">
-              <title id="planSuiteTitle">Sky Junior Suite layout</title>
-              <desc id="planSuiteDesc">Larger cabin with bathroom and tub, dressing area, bed, separate sitting area, wardrobe and a wider private balcony.</desc>
-              <rect class="wall" x="12" y="16" width="336" height="232" rx="6"></rect>
-              <rect class="zone cool" x="24" y="28" width="94" height="100" rx="4"></rect>
-              <text x="71" y="72" text-anchor="middle">Bath</text>
-              <text class="sm" x="71" y="88" text-anchor="middle">tub + shower</text>
-              <rect class="zone cool" x="24" y="140" width="94" height="96" rx="4"></rect>
-              <text x="71" y="182" text-anchor="middle">Dressing</text>
-              <text class="sm" x="71" y="198" text-anchor="middle">walk-in storage</text>
-              <rect class="zone" x="134" y="28" width="120" height="100" rx="4"></rect>
-              <text x="194" y="72" text-anchor="middle">Bed</text>
-              <text class="sm" x="194" y="88" text-anchor="middle">king</text>
-              <rect class="zone cool" x="270" y="28" width="64" height="100" rx="4"></rect>
-              <text class="sm" x="302" y="72" text-anchor="middle">Wardrobe</text>
-              <text class="sm" x="302" y="88" text-anchor="middle">/ desk</text>
-              <rect class="zone warm" x="134" y="140" width="200" height="96" rx="4"></rect>
-              <text x="234" y="182" text-anchor="middle">Sitting area</text>
-              <text class="sm" x="234" y="198" text-anchor="middle">sofa + table</text>
-              <rect class="deck" x="362" y="28" width="96" height="208" rx="6"></rect>
-              <text x="410" y="120" text-anchor="middle">Balcony</text>
-              <text class="sm" x="410" y="138" text-anchor="middle">wider deck,</text>
-              <text class="sm" x="410" y="153" text-anchor="middle">loungers</text>
-              <path class="arrow" d="M12 132 H-30 m10 -8 l-10 8 l10 8"></path>
-              <text class="sm" x="-64" y="118" text-anchor="start">Corridor</text>
-              <text class="sm" x="-64" y="152" text-anchor="start">entry</text>
-            </svg>
-            <figcaption>Typical Sky Junior Suite layout. Illustrative &mdash; not to scale.</figcaption>
+            <div class="video-frame">
+              <button type="button" class="video-lite" data-yt="cZ3niUT5FdA" data-title="Star of the Seas Sky Junior Suite walkthrough tour" aria-label="Play video: Star of the Seas Sky Junior Suite walkthrough tour">
+                <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                     src="https://i.ytimg.com/vi/cZ3niUT5FdA/hqdefault.jpg">
+                <span class="vl-play"></span>
+                <span class="vl-label">Star of the Seas &middot; Sky Junior Suite walkthrough</span>
+              </button>
+            </div>
+            <figcaption>Full 4K walkthrough of a Sky Junior Suite on Star of the Seas &mdash; the room type for 10530. <a href="https://www.youtube.com/watch?v=cZ3niUT5FdA" target="_blank" rel="noopener">Watch on YouTube</a></figcaption>
           </figure>
         </div>
         <div class="panel accent sun">
@@ -1352,9 +1342,31 @@
         </article>
       </div>
 
+      <h3 class="subhead">CocoCay on video</h3>
+      <p>The island itself, then the Coco Beach Club and cabanas we would actually be booking.</p>
       <div class="image-strip">
-        <img loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ports-and-destinations/destinations/perfect-day/perfect-day-at-coco-cay-father-son-floating-cabana-family.jpg?$800x450$" alt="Coco Beach Club floating cabana at Perfect Day at CocoCay">
-        <img loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ports-and-destinations/destinations/perfect-day/perfect-day-coco-cay-coco-beach-club-infinity-pool-guest-enjoying.jpg?$800x450$" alt="Coco Beach Club infinity pool at Perfect Day at CocoCay">
+        <figure class="room-figure">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="IquW3lfI5NU" data-title="Perfect Day at CocoCay full island tour" aria-label="Play video: Perfect Day at CocoCay full island tour">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/IquW3lfI5NU/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Perfect Day at CocoCay &middot; full island tour</span>
+            </button>
+          </div>
+          <figcaption>Full tour of the island &mdash; beaches, pools, Thrill Waterpark and the kids&rsquo; splash areas. <a href="https://www.youtube.com/watch?v=IquW3lfI5NU" target="_blank" rel="noopener">Watch on YouTube</a></figcaption>
+        </figure>
+        <figure class="room-figure">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="mFFmC6_BNA0" data-title="Coco Beach Club full tour with cabanas food and pricing" aria-label="Play video: Coco Beach Club full tour with cabanas food and pricing">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/mFFmC6_BNA0/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Coco Beach Club &middot; full tour + cabanas</span>
+            </button>
+          </div>
+          <figcaption>The Coco Beach Club itself: cabanas, the infinity pool, the food and what it costs. <a href="https://www.youtube.com/watch?v=mFFmC6_BNA0" target="_blank" rel="noopener">Watch on YouTube</a></figcaption>
+        </figure>
       </div>
 
       <div class="grid-2" style="margin-top:var(--gap);">
@@ -1366,7 +1378,7 @@
         <div class="panel accent reef">
           <h3>What it gets you</h3>
           <p>Coco Beach Club cabanas usually include Beach Club access for cabana guests, attendant service, an upgraded lunch, infinity pool access and a quieter beach setup.</p>
-          <p>The photos above are the actual Coco Beach Club product, not random beach stock shots.</p>
+          <p>The videos above are the actual Coco Beach Club product, not random beach stock footage.</p>
         </div>
       </div>
     </section>
@@ -1378,7 +1390,7 @@
           <span class="kicker">Onboard</span>
           <h2>Ship neighbourhoods</h2>
         </div>
-        <p>All eight Star and Icon class neighbourhoods, with a real Royal Caribbean photo tied to each area.</p>
+        <p>All eight Star and Icon class neighbourhoods, each with a Royal Caribbean photo or an onboard walkthrough video filmed on Star itself.</p>
       </div>
       <div class="grid-4">
         <article class="card">
@@ -1402,11 +1414,25 @@
           <div class="card-body"><h3>AquaDome</h3><p>AquaTheater shows, ocean views, the Overlook hangout, Hooked and AquaDome Market.</p></div>
         </article>
         <article class="card">
-          <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/onboard/experiences/central-park/central-park-night-time-lights.jpg?$800x450$" alt="Central Park at night">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="DMUFvcqTB_c" data-title="Inside the newest Central Park on Star of the Seas" aria-label="Play video: Inside the newest Central Park on Star of the Seas">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/DMUFvcqTB_c/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Star of the Seas &middot; Central Park tour</span>
+            </button>
+          </div>
           <div class="card-body"><h3>Central Park</h3><p>Quieter open-air garden, bars, specialty dining and night strolls.</p></div>
         </article>
         <article class="card">
-          <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/onboard/experiences/royal-promenade/symphony-of-the-seas-royal-promenade-night-time.jpg?$800x450$" alt="Royal Promenade">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="Jl6WWZtn3w8" data-title="Inside the Royal Promenade on Star of the Seas" aria-label="Play video: Inside the Royal Promenade on Star of the Seas">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/Jl6WWZtn3w8/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Star of the Seas &middot; Royal Promenade tour</span>
+            </button>
+          </div>
           <div class="card-body"><h3>Royal Promenade</h3><p>Pearl, shopping, pizza, bars, music and people-watching in the main indoor spine.</p></div>
         </article>
         <article class="card">
@@ -1427,7 +1453,14 @@
       </div>
       <div class="grid-4">
         <article class="card">
-          <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/onboard/experiences/category-6-waterpark/girl-boy-walking-up-stairs-in-category-6-waterpark.jpg?$520x520$" alt="Kids walking up Category 6 waterpark stairs">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="x8XCYOcLCyc" data-title="Every water slide on Star of the Seas - full POV" aria-label="Play video: Every water slide on Star of the Seas - full POV">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/x8XCYOcLCyc/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Star of the Seas &middot; every slide, POV</span>
+            </button>
+          </div>
           <div class="card-body"><h3>Category 6 waterpark</h3><p>Six waterslides on Thrill Island, including raft, mat and body slide setups for bigger kid energy.</p></div>
         </article>
         <article class="card">
@@ -1464,7 +1497,14 @@
           <div class="card-body"><h3>Absolute Zero</h3><p>The ice arena show space, with Star-specific ice productions and skating acts.</p></div>
         </article>
         <article class="card">
-          <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/data/activity/entertainment-shows/broadway-show/back-to-the-future/images/back-to-the-future-broadway-show-logo-with-car-vertical-tile.jpg?$440x880$" alt="Back to the Future musical artwork">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="tAWzHF1j6Yw" data-title="Behind the scenes of Back to the Future The Musical on Star of the Seas, opening night" aria-label="Play video: Behind the scenes of Back to the Future The Musical on Star of the Seas, opening night">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/tAWzHF1j6Yw/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Star of the Seas &middot; Back to the Future opening night</span>
+            </button>
+          </div>
           <div class="card-body"><h3>Back to the Future</h3><p>Royal Theater headline musical. This is the reserve-early show.</p></div>
         </article>
         <article class="card">
@@ -1472,7 +1512,14 @@
           <div class="card-body"><h3>Dueling Pianos</h3><p>Interactive sing-along piano bar energy for adults after dinner.</p></div>
         </article>
         <article class="card">
-          <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/content/cross-linking/casino-excitement-playing-slots-games.jpg?$1024x700$" alt="Casino Royale slot machines">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="Er424Awzn28" data-title="Casino Royale full walkthrough on Star of the Seas" aria-label="Play video: Casino Royale full walkthrough on Star of the Seas">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/Er424Awzn28/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Star of the Seas &middot; Casino Royale walkthrough</span>
+            </button>
+          </div>
           <div class="card-body"><h3>Casino Royale</h3><p>Slots, tables, tournaments and the grown-up late-night wander option.</p></div>
         </article>
         <article class="card">
@@ -1492,15 +1539,70 @@
         <p>No buffet sales pitch. This section is about the better dining targets and how to book them without turning dinner into homework.</p>
       </div>
       <div class="restaurant-grid">
-        <div class="restaurant-card"><span class="chip">Steakhouse</span><h3>Chops Grille</h3><p>The obvious adult steak night. Best for a clean, predictable premium dinner.</p></div>
-        <div class="restaurant-card"><span class="chip reef">Seafood</span><h3>Hooked Seafood</h3><p>Raw bar, lobster roll, seafood plates and the AquaDome-adjacent dinner option.</p></div>
-        <div class="restaurant-card"><span class="chip green">Show meal</span><h3>Izumi Hibachi &amp; Sushi</h3><p>The easiest family specialty meal, because dinner itself becomes the entertainment.</p></div>
-        <div class="restaurant-card"><span class="chip sun">Italian</span><h3>Giovanni&rsquo;s Italian Kitchen</h3><p>Safe group-friendly pick for pasta, wine and a lower-drama specialty dinner.</p></div>
-      </div>
-      <div class="image-strip">
-        <img loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/cutting-into-chops-grille-dish.jpg?$440x880$" alt="Steak being cut at Chops Grille">
-        <img loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/lobster-roll-at-hooked-seafood.jpg?$440x880$" alt="Lobster roll at Hooked Seafood">
-        <img loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/ladies-eating-at-teppanyaki-at-izumi-hibachi-and-sushi-1920-2880.jpg?$440x880$" alt="Teppanyaki table at Izumi Hibachi and Sushi">
+        <article class="restaurant-card">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="ePWG6tofLIM" data-title="Chops Grille on Star of the Seas - signature steakhouse dining and how to book" aria-label="Play video: Chops Grille on Star of the Seas - signature steakhouse dining and how to book">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/ePWG6tofLIM/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Chops Grille on Star of the Seas</span>
+            </button>
+          </div>
+          <div class="rc-body">
+            <span class="chip">Steakhouse</span>
+            <h3>Chops Grille</h3>
+            <p>The obvious adult steak night. Best for a clean, predictable premium dinner.</p>
+            <p class="vl-credit">Filmed on Star of the Seas &middot; <a href="https://www.youtube.com/watch?v=ePWG6tofLIM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+          </div>
+        </article>
+        <article class="restaurant-card">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="EuLnFZA56QE" data-title="Hooked Seafood dining review on Star of the Seas" aria-label="Play video: Hooked Seafood dining review on Star of the Seas">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/EuLnFZA56QE/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Hooked Seafood on Star of the Seas</span>
+            </button>
+          </div>
+          <div class="rc-body">
+            <span class="chip reef">Seafood</span>
+            <h3>Hooked Seafood</h3>
+            <p>Raw bar, lobster roll, seafood plates and the AquaDome-adjacent dinner option.</p>
+            <p class="vl-credit">Filmed on Star of the Seas &middot; <a href="https://www.youtube.com/watch?v=EuLnFZA56QE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+          </div>
+        </article>
+        <article class="restaurant-card">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="b6QqtDbRMcQ" data-title="Izumi teppanyaki full hibachi experience review on Star of the Seas" aria-label="Play video: Izumi teppanyaki full hibachi experience review on Star of the Seas">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/b6QqtDbRMcQ/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Izumi Hibachi on Star of the Seas</span>
+            </button>
+          </div>
+          <div class="rc-body">
+            <span class="chip green">Show meal</span>
+            <h3>Izumi Hibachi &amp; Sushi</h3>
+            <p>The easiest family specialty meal, because dinner itself becomes the entertainment.</p>
+            <p class="vl-credit">Filmed on Star of the Seas &middot; <a href="https://www.youtube.com/watch?v=b6QqtDbRMcQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+          </div>
+        </article>
+        <article class="restaurant-card">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="wfl3JAVSZFI" data-title="Giovanni’s Italian Kitchen full food review on Icon of the Seas" aria-label="Play video: Giovanni’s Italian Kitchen full food review on Icon of the Seas">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/wfl3JAVSZFI/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Giovanni&rsquo;s on Icon of the Seas</span>
+            </button>
+          </div>
+          <div class="rc-body">
+            <span class="chip sun">Italian</span>
+            <h3>Giovanni&rsquo;s Italian Kitchen</h3>
+            <p>Safe group-friendly pick for pasta, wine and a lower-drama specialty dinner. On Star it sits on Deck&nbsp;6, off the Royal Promenade.</p>
+            <p class="vl-credit">Filmed on Icon of the Seas, Star&rsquo;s sister ship &middot; <a href="https://www.youtube.com/watch?v=wfl3JAVSZFI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+          </div>
+        </article>
       </div>
       <p class="note">Specialty restaurants open for booking well before sailing and the good times go first. Worth picking two or three nights as a group rather than nine people booking separately.</p>
     </section>
@@ -1510,31 +1612,46 @@
       <div class="section-head">
         <div>
           <span class="kicker">Watch</span>
-          <h2>Promo videos</h2>
+          <h2>Ship videos</h2>
         </div>
-        <p>Embedded for the easy sell: ship overview, hyperlapse tour and Perfect Day. These need an internet connection to play.</p>
+        <p>All filmed on Star of the Seas. Press play to load one &mdash; they need an internet connection.</p>
       </div>
       <div class="video-grid">
         <article class="video-card">
           <div class="video-frame">
-            <iframe src="https://www.youtube.com/embed/wYlPnjwtiNA" title="Exclusive Look at Royal Caribbean's Star of the Seas" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <button type="button" class="video-lite" data-yt="wYlPnjwtiNA" data-title="Exclusive look at Royal Caribbean Star of the Seas" aria-label="Play video: Exclusive look at Royal Caribbean Star of the Seas">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/wYlPnjwtiNA/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Star of the Seas &middot; official ship tour</span>
+            </button>
           </div>
           <h3>Star of the Seas</h3>
           <p>Official Royal Caribbean overview of the ship, neighbourhoods, waterpark, dining and entertainment.</p>
         </article>
         <article class="video-card">
           <div class="video-frame">
-            <iframe src="https://www.youtube.com/embed/Qcr7-1FBz-4" title="Perfect Day at CocoCay Royal Caribbean" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-          </div>
-          <h3>Perfect Day at CocoCay</h3>
-          <p>Official promo for the private island. Useful for selling the cabana and private club day.</p>
-        </article>
-        <article class="video-card">
-          <div class="video-frame">
-            <iframe src="https://www.youtube.com/embed/2FAHDUqvpgM" title="Star of the Seas Hyperlapse Tour" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <button type="button" class="video-lite" data-yt="2FAHDUqvpgM" data-title="Star of the Seas hyperlapse tour" aria-label="Play video: Star of the Seas hyperlapse tour">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/2FAHDUqvpgM/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Star of the Seas &middot; hyperlapse</span>
+            </button>
           </div>
           <h3>Hyperlapse tour</h3>
           <p>Quick 1:23 walkthrough that gives people the scale of the ship without a long promo.</p>
+        </article>
+        <article class="video-card">
+          <div class="video-frame">
+            <button type="button" class="video-lite" data-yt="lMNxnKrLwUc" data-title="Star of the Seas full walkthrough tour of 30 cabins" aria-label="Play video: Star of the Seas full walkthrough tour of 30 cabins">
+              <img class="vl-thumb" data-fallback="thumb" loading="lazy" decoding="async" alt=""
+                   src="https://i.ytimg.com/vi/lMNxnKrLwUc/hqdefault.jpg">
+              <span class="vl-play"></span>
+              <span class="vl-label">Star of the Seas &middot; 30 cabins walkthrough</span>
+            </button>
+          </div>
+          <h3>Every cabin type</h3>
+          <p>Walkthrough of 30 Star of the Seas cabins if anyone wants to compare our rooms against the rest of the ship.</p>
         </article>
       </div>
     </section>
@@ -1572,8 +1689,9 @@
     </div>
     <p class="footer-note">
       Single-file HTML trip brief &mdash; open it in any browser, or print it straight to PDF.
-      Room layout diagrams are illustrative rather than official deck plans; confirm room details,
-      suite perks and hotel shuttle times directly with Royal Caribbean and the hotel.
+      Videos are third-party walkthroughs and reviews filmed on Star of the Seas (or Icon of the
+      Seas where noted) and load only when you press play. Confirm room details, suite perks and
+      hotel shuttle times directly with Royal Caribbean and the hotel.
     </p>
   </footer>
 
@@ -1638,9 +1756,26 @@
         sections.forEach(function (section) { observer.observe(section); });
       }
 
+      /* ---- click-to-load YouTube: swap the facade for a real iframe ---- */
+      document.addEventListener('click', function (event) {
+        var button = event.target.closest ? event.target.closest('.video-lite') : null;
+        if (!button) return;
+        var id = button.getAttribute('data-yt');
+        var frame = button.parentNode;
+        if (!id || !frame) return;
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+        iframe.title = button.getAttribute('data-title') || 'Video';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.setAttribute('allowfullscreen', '');
+        frame.replaceChild(iframe, button);
+      });
+
       /* ---- hide images that fail to load, so nothing renders broken ---- */
-      Array.prototype.forEach.call(document.querySelectorAll('img[data-fallback="hide"]'), function (img) {
+      Array.prototype.forEach.call(document.querySelectorAll('img[data-fallback]'), function (img) {
         img.addEventListener('error', function () {
+          /* a video thumbnail is decoration - the facade still works without it */
+          if (img.getAttribute('data-fallback') === 'thumb') { img.remove(); return; }
           var figure = img.closest('figure');
           if (figure) {
             figure.remove();
