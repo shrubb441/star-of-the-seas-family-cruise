@@ -383,31 +383,12 @@
     section.tinted { background: var(--paper-alt); }
 
     .section-head {
-      display: grid;
-      grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr);
-      gap: clamp(16px, 3vw, 40px);
-      align-items: end;
-      margin-bottom: clamp(26px, 3.5vw, 44px);
-    }
-    .kicker {
-      display: block;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--sea);
-      margin-bottom: 10px;
+      margin-bottom: clamp(22px, 3vw, 36px);
     }
     h2 {
       font-size: clamp(30px, 4.4vw, 58px);
       line-height: 1.02;
       margin: 0;
-    }
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 16.5px;
-      max-width: 56ch;
     }
 
     /* ---------------------------------------------------------------
@@ -420,7 +401,7 @@
     /* grid and flex children default to min-content width, which forces page
        overflow on narrow screens - opt every layout child out of that */
     .grid-2 > *, .grid-3 > *, .grid-4 > *,
-    .section-head > *, .itinerary > *, .roomtype > *,
+    .itinerary > *, .roomtype > *,
     .snapshot-grid > *, .room-strip > *, .port-map > *,
     .restaurant-grid > *, .video-grid > *, .image-strip > *,
     .quickbar > *, .day > *, .footer-grid > * { min-width: 0; }
@@ -478,14 +459,9 @@
     }
 
     .subhead {
-      margin: clamp(34px, 4vw, 52px) 0 4px;
+      margin: clamp(34px, 4vw, 52px) 0 var(--gap);
       font-size: clamp(24px, 3vw, 34px);
       line-height: 1.1;
-    }
-    .subhead + p {
-      margin: 0 0 var(--gap);
-      color: var(--muted);
-      max-width: 62ch;
     }
 
     /* ---------------------------------------------------------------
@@ -1012,7 +988,6 @@
        Responsive
     ---------------------------------------------------------------- */
     @media (max-width: 900px) {
-      .section-head { grid-template-columns: 1fr; align-items: start; }
       .itinerary, .roomtype { grid-template-columns: 1fr; }
       .feature-img { min-height: 260px; max-height: 420px; }
       .day { grid-template-columns: 96px minmax(0, 1fr); }
@@ -1098,11 +1073,7 @@
     <!-- ============================ SNAPSHOT ============================ -->
     <section id="snapshot">
       <div class="section-head">
-        <div>
-          <span class="kicker">Start here</span>
-          <h2>The trip in one look</h2>
-        </div>
-        <p>The six facts everyone keeps asking for, without scrolling through the whole brief.</p>
+        <h2>Key facts</h2>
       </div>
 
       <div class="snapshot-grid">
@@ -1147,11 +1118,7 @@
     <!-- ============================== ROOMS ============================== -->
     <section id="rooms" class="tinted">
       <div class="section-head">
-        <div>
-          <span class="kicker">Key reference</span>
-          <h2>Rooms and who&rsquo;s in them</h2>
-        </div>
-        <p>Three rooms, all on Deck&nbsp;10 and within a few doors of each other. Two Ocean View Balcony staterooms and one Sky Junior Suite.</p>
+        <h2>Rooms</h2>
       </div>
 
       <div class="room-strip">
@@ -1186,18 +1153,9 @@
         </article>
       </div>
 
-      <p class="note">
-        Everyone has their own room and their own balcony &mdash; nobody is pretending a shared
-        mega-cabin is relaxing. 10524 and 10526 are next door to each other; 10530 is a couple of
-        doors further along the same corridor.
-      </p>
 
       <div data-full-only>
         <h3 class="subhead">Room views</h3>
-        <p>
-          Full walkthrough tours of both room types, filmed on Star of the Seas itself &mdash; so
-          nobody has to guess what they&rsquo;re walking into.
-        </p>
 
         <!-- Ocean View Balcony -->
         <div class="roomtype">
@@ -1217,7 +1175,7 @@
           <div class="panel accent">
             <span class="chip">Rooms 10524 &amp; 10526</span>
             <h3 style="margin-top:12px;">Ocean View with Balcony</h3>
-            <p>The standard balcony stateroom, and the right call for both families: private outdoor space, real ocean light, and enough room to spread out without paying suite money.</p>
+            <p data-full-only>The standard balcony stateroom, and the right call for both families: private outdoor space, real ocean light, and enough room to spread out without paying suite money.</p>
             <ul class="feature-list">
               <li>Private ocean-facing balcony with seating</li>
               <li>Bed positioned toward the balcony, sitting/desk area behind</li>
@@ -1247,7 +1205,7 @@
           <div class="panel accent sun">
             <span class="chip sun">Room 10530</span>
             <h3 style="margin-top:12px;">Sky Junior Suite</h3>
-            <p>The biggest room of the three. Junior-suite square footage means a genuine sitting area rather than a bed with a chair squeezed next to it, plus a larger balcony and a better bathroom.</p>
+            <p data-full-only>The biggest room of the three. Junior-suite square footage means a genuine sitting area rather than a bed with a chair squeezed next to it, plus a larger balcony and a better bathroom.</p>
             <ul class="feature-list sun">
               <li>Noticeably larger than the balcony staterooms</li>
               <li>Separate sitting area with sofa and table</li>
@@ -1266,11 +1224,7 @@
     <!-- ============================ ITINERARY ============================ -->
     <section id="itinerary">
       <div class="section-head">
-        <div>
-          <span class="kicker">The plan</span>
-          <h2>Day by day</h2>
-        </div>
-        <p>Balanced enough for kids, adults, and the people who just want not to be dragged through a military-grade vacation schedule.</p>
+        <h2>Itinerary</h2>
       </div>
 
       <div class="itinerary">
@@ -1328,7 +1282,7 @@
         <div class="panel accent plum">
           <span class="chip navy">Pre-cruise night</span>
           <h3 style="margin-top:12px;">Hyatt Place Cape Canaveral</h3>
-          <p>Replaces the old Orlando hotel plan. Staying on the coast instead of inland means a short transfer on embarkation morning rather than an hour-plus drive with nine people and all the luggage.</p>
+          <p data-full-only>Replaces the old Orlando hotel plan. Staying on the coast instead of inland means a short transfer on embarkation morning rather than an hour-plus drive with nine people and all the luggage.</p>
           <ul class="feature-list">
             <li>Minutes from the Port Canaveral cruise terminals</li>
             <li>Paid shuttle to the terminal &mdash; book it ahead, not on the day</li>
@@ -1340,7 +1294,7 @@
         <div class="panel accent green">
           <span class="chip green">Getting there</span>
           <h3 style="margin-top:12px;">Flights and transfers</h3>
-          <p>Fly BDA &rarr; MCO on Sat Aug&nbsp;7, then transfer to Cape Canaveral for the night. Everyone is in one place the evening before, which removes the single biggest thing that goes wrong on cruise mornings.</p>
+          <p data-full-only>Fly BDA &rarr; MCO on Sat Aug&nbsp;7, then transfer to Cape Canaveral for the night. Everyone is in one place the evening before, which removes the single biggest thing that goes wrong on cruise mornings.</p>
           <p>On Sun Aug&nbsp;15 the ship is back in Port Canaveral in the morning. Either fly MCO &rarr; BDA the same day with a comfortable buffer, or add a second Florida night and fly out relaxed.</p>
         </div>
       </div>
@@ -1349,18 +1303,14 @@
     <!-- ============================== PORTS ============================== -->
     <section id="ports" class="tinted">
       <div class="section-head">
-        <div>
-          <span class="kicker">Ashore</span>
-          <h2>Ports worth caring about</h2>
-        </div>
-        <p>Keep the ports simple, and make CocoCay the premium day with a real Coco Beach Club cabana target.</p>
+        <h2>Ports</h2>
       </div>
 
       <div class="port-map">
         <article class="port">
           <span class="chip">Mon Aug 9</span>
           <h3>CocoCay</h3>
-          <p>Royal&rsquo;s private island, and the day to build around comfort.</p>
+          <p data-full-only>Royal&rsquo;s private island, and the day to build around comfort.</p>
           <ul>
             <li>Coco Beach Club cabana or floating cabana</li>
             <li>Beach Club infinity pool and upgraded lunch</li>
@@ -1371,7 +1321,7 @@
         <article class="port">
           <span class="chip reef">Wed Aug 11</span>
           <h3>Costa Maya</h3>
-          <p>Lowest-stress port for mixed ages.</p>
+          <p data-full-only>Lowest-stress port for mixed ages.</p>
           <ul>
             <li>Port pool and shopping</li>
             <li>Maya Chan or a beach club day</li>
@@ -1382,7 +1332,7 @@
         <article class="port">
           <span class="chip green">Thu Aug 12</span>
           <h3>Roat&aacute;n</h3>
-          <p>The nature and adventure stop.</p>
+          <p data-full-only>The nature and adventure stop.</p>
           <ul>
             <li>West Bay beach</li>
             <li>Reef snorkelling</li>
@@ -1393,7 +1343,7 @@
         <article class="port">
           <span class="chip sun">Fri Aug 13</span>
           <h3>Cozumel</h3>
-          <p>Best for an easy beach club or water day.</p>
+          <p data-full-only>Best for an easy beach club or water day.</p>
           <ul>
             <li>Nachi Cocom or Mr. Sanchos style beach club</li>
             <li>Snorkel or catamaran</li>
@@ -1404,7 +1354,6 @@
       </div>
 
       <h3 class="subhead">CocoCay on video</h3>
-      <p>The island itself, then the Coco Beach Club and cabanas we would actually be booking.</p>
       <div class="image-strip">
         <figure class="room-figure">
           <div class="video-frame">
@@ -1415,7 +1364,7 @@
               <span class="vl-label">Perfect Day at CocoCay &middot; full island tour</span>
             </button>
           </div>
-          <figcaption>Full tour of the island &mdash; beaches, pools, Thrill Waterpark and the kids&rsquo; splash areas. <a href="https://www.youtube.com/watch?v=IquW3lfI5NU" target="_blank" rel="noopener">Watch on YouTube</a></figcaption>
+          <figcaption><span data-full-only>Full tour of the island &mdash; beaches, pools, Thrill Waterpark and the kids&rsquo; splash areas. </span><a href="https://www.youtube.com/watch?v=IquW3lfI5NU" target="_blank" rel="noopener">Watch on YouTube</a></figcaption>
         </figure>
         <figure class="room-figure">
           <div class="video-frame">
@@ -1426,19 +1375,19 @@
               <span class="vl-label">Coco Beach Club &middot; full tour + cabanas</span>
             </button>
           </div>
-          <figcaption>The Coco Beach Club itself: cabanas, the infinity pool, the food and what it costs. <a href="https://www.youtube.com/watch?v=mFFmC6_BNA0" target="_blank" rel="noopener">Watch on YouTube</a></figcaption>
+          <figcaption><span data-full-only>The Coco Beach Club itself: cabanas, the infinity pool, the food and what it costs. </span><a href="https://www.youtube.com/watch?v=mFFmC6_BNA0" target="_blank" rel="noopener">Watch on YouTube</a></figcaption>
         </figure>
       </div>
 
       <div class="grid-2" style="margin-top:var(--gap);" data-full-only>
         <div class="panel accent sun">
           <h3>Cabana call</h3>
-          <p>Best target: a Coco Beach Club cabana. Dream target: a floating cabana.</p>
+          <p data-full-only>Best target: a Coco Beach Club cabana. Dream target: a floating cabana.</p>
           <p>Why: adults get a nicer base, kids still get island fun, and CocoCay becomes the premium anchor of the whole trip.</p>
         </div>
         <div class="panel accent reef">
           <h3>What it gets you</h3>
-          <p>Coco Beach Club cabanas usually include Beach Club access for cabana guests, attendant service, an upgraded lunch, infinity pool access and a quieter beach setup.</p>
+          <p data-full-only>Coco Beach Club cabanas usually include Beach Club access for cabana guests, attendant service, an upgraded lunch, infinity pool access and a quieter beach setup.</p>
           <p>The videos above are the actual Coco Beach Club product, not random beach stock footage.</p>
         </div>
       </div>
@@ -1447,32 +1396,28 @@
     <!-- =============================== SHIP =============================== -->
     <section id="ship" data-full-only>
       <div class="section-head">
-        <div>
-          <span class="kicker">Onboard</span>
-          <h2>Ship neighbourhoods</h2>
-        </div>
-        <p>All eight Star and Icon class neighbourhoods, each with a Royal Caribbean photo or an onboard walkthrough video filmed on Star itself.</p>
+        <h2>Ship</h2>
       </div>
       <div class="grid-4">
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/star-of-the-seas-aerial-midship-category6-waterpark.jpg?$1440x1440$" alt="Category 6 waterpark on Star of the Seas">
-          <div class="card-body"><h3>Thrill Island</h3><p>Category 6 waterpark, Crown&rsquo;s Edge, FlowRider, rock wall and mini golf.</p></div>
+          <div class="card-body"><h3>Thrill Island</h3><p data-full-only>Category 6 waterpark, Crown&rsquo;s Edge, FlowRider, rock wall and mini golf.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/bartender-handing-couple-cocktails-swim-and-tonic-pool-star-of-the-seas.jpg?$800x450$" alt="Swim and Tonic pool area on Star of the Seas">
-          <div class="card-body"><h3>Chill Island</h3><p>Main pool-deck energy, Swim &amp; Tonic, Lime &amp; Coconut and sea-day lounging.</p></div>
+          <div class="card-body"><h3>Chill Island</h3><p data-full-only>Main pool-deck energy, Swim &amp; Tonic, Lime &amp; Coconut and sea-day lounging.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/surfside-splashaway-bay-group-of-kids-playing-waterslide-star-of-the-seas.jpg?$800x450$" alt="Surfside Splashaway Bay on Star of the Seas">
-          <div class="card-body"><h3>Surfside</h3><p>Family neighbourhood with Splashaway Bay, Water&rsquo;s Edge pool, kid food and parent seating.</p></div>
+          <div class="card-body"><h3>Surfside</h3><p data-full-only>Family neighbourhood with Splashaway Bay, Water&rsquo;s Edge pool, kid food and parent seating.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/data/activity/pool/icon-of-the-seas-the-hideaway-pool-friends-cocktails-party-splash-adult.jpg?$800x450$" alt="The Hideaway pool area">
-          <div class="card-body"><h3>The Hideaway</h3><p>Adults-only suspended pool scene for cocktails, music and no-kid breathing room.</p></div>
+          <div class="card-body"><h3>The Hideaway</h3><p data-full-only>Adults-only suspended pool scene for cocktails, music and no-kid breathing room.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/icon/lifestyle-images/icon-of-the-seas-aquatheater-aquaaction-entertainment-aquadome.jpg?$800x450$" alt="AquaDome AquaTheater performance">
-          <div class="card-body"><h3>AquaDome</h3><p>AquaTheater shows, ocean views, the Overlook hangout, Hooked and AquaDome Market.</p></div>
+          <div class="card-body"><h3>AquaDome</h3><p data-full-only>AquaTheater shows, ocean views, the Overlook hangout, Hooked and AquaDome Market.</p></div>
         </article>
         <article class="card">
           <div class="video-frame">
@@ -1483,7 +1428,7 @@
               <span class="vl-label">Star of the Seas &middot; Central Park tour</span>
             </button>
           </div>
-          <div class="card-body"><h3>Central Park</h3><p>Quieter open-air garden, bars, specialty dining and night strolls.</p></div>
+          <div class="card-body"><h3>Central Park</h3><p data-full-only>Quieter open-air garden, bars, specialty dining and night strolls.</p></div>
         </article>
         <article class="card">
           <div class="video-frame">
@@ -1494,11 +1439,11 @@
               <span class="vl-label">Star of the Seas &middot; Royal Promenade tour</span>
             </button>
           </div>
-          <div class="card-body"><h3>Royal Promenade</h3><p>Pearl, shopping, pizza, bars, music and people-watching in the main indoor spine.</p></div>
+          <div class="card-body"><h3>Royal Promenade</h3><p data-full-only>Pearl, shopping, pizza, bars, music and people-watching in the main indoor spine.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/accommodations/icon/loft-suite-balcony-ocean/icon-of-the-seas-loft-suite-living-room-balcony.jpg?$440x440$" alt="Suite neighbourhood style lounge">
-          <div class="card-body"><h3>Suite Neighborhood</h3><p>Private suite-only deck area and upscale retreat space, on the upper decks.</p></div>
+          <div class="card-body"><h3>Suite Neighborhood</h3><p data-full-only>Private suite-only deck area and upscale retreat space, on the upper decks.</p></div>
         </article>
       </div>
     </section>
@@ -1506,11 +1451,7 @@
     <!-- =============================== KIDS =============================== -->
     <section id="kids" class="tinted" data-full-only>
       <div class="section-head">
-        <div>
-          <span class="kicker">For the three kids</span>
-          <h2>Waterpark and family stuff</h2>
-        </div>
-        <p>This is the biggest reason Star works for this group. Sea days are real entertainment days, not filler.</p>
+        <h2>Kids</h2>
       </div>
       <div class="grid-4">
         <article class="card">
@@ -1522,19 +1463,19 @@
               <span class="vl-label">Star of the Seas &middot; every slide, POV</span>
             </button>
           </div>
-          <div class="card-body"><h3>Category 6 waterpark</h3><p>Six waterslides on Thrill Island, including raft, mat and body slide setups for bigger kid energy.</p></div>
+          <div class="card-body"><h3>Category 6 waterpark</h3><p data-full-only>Six waterslides on Thrill Island, including raft, mat and body slide setups for bigger kid energy.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/surfside-splashaway-bay-group-of-kids-playing-waterslide-star-of-the-seas.jpg?$800x450$" alt="Kids playing in the Surfside splash area">
-          <div class="card-body"><h3>Surfside splash zone</h3><p>Splashaway Bay, Baby Bay and Water&rsquo;s Edge pool keep younger kids busy without dragging everyone across the ship.</p></div>
+          <div class="card-body"><h3>Surfside splash zone</h3><p data-full-only>Splashaway Bay, Baby Bay and Water&rsquo;s Edge pool keep younger kids busy without dragging everyone across the ship.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/family-enjoying-a-meal-at-playmakers-sports-bar-and-arcade.jpg?$440x440$" alt="Family at Playmakers Sports Bar and Arcade">
-          <div class="card-body"><h3>Playmakers arcade</h3><p>Sports bar and arcade combo. Good for casual food, games and a low-pressure kid or teen reset.</p></div>
+          <div class="card-body"><h3>Playmakers arcade</h3><p data-full-only>Sports bar and arcade combo. Good for casual food, games and a low-pressure kid or teen reset.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/onboard/experiences/adventure-ocean/icon-of-the-seas-adventure-ocean-interactive-games.jpg?$440x880$" alt="Adventure Ocean kids club interactive games">
-          <div class="card-body"><h3>Adventure Ocean</h3><p>Royal&rsquo;s kids club programming. Useful for adult dinners, decompression and letting the kids split by age.</p></div>
+          <div class="card-body"><h3>Adventure Ocean</h3><p data-full-only>Royal&rsquo;s kids club programming. Useful for adult dinners, decompression and letting the kids split by age.</p></div>
         </article>
       </div>
     </section>
@@ -1542,20 +1483,16 @@
     <!-- =============================== SHOWS ============================== -->
     <section id="shows">
       <div class="section-head">
-        <div>
-          <span class="kicker">After dark</span>
-          <h2>Shows and nights out</h2>
-        </div>
-        <p>Put the big action up front: AquaDome, ice, Broadway, casino and duelling pianos.</p>
+        <h2>Shows</h2>
       </div>
       <div class="grid-3">
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/aquatheater-slack-line-performers-star-of-the-seas.jpg?$520x520$" alt="AquaTheater slackline performers on Star of the Seas">
-          <div class="card-body"><h3>AquaDome action</h3><p>Diving, slackline, aerial work and full production tech in the AquaTheater.</p></div>
+          <div class="card-body"><h3>AquaDome action</h3><p data-full-only>Diving, slackline, aerial work and full production tech in the AquaTheater.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/absolute-zero-show-ice-skaters-performing-star-of-the-seas.jpg?$520x520$" alt="Absolute Zero ice skaters on Star of the Seas">
-          <div class="card-body"><h3>Absolute Zero</h3><p>The ice arena show space, with Star-specific ice productions and skating acts.</p></div>
+          <div class="card-body"><h3>Absolute Zero</h3><p data-full-only>The ice arena show space, with Star-specific ice productions and skating acts.</p></div>
         </article>
         <article class="card">
           <div class="video-frame">
@@ -1566,11 +1503,11 @@
               <span class="vl-label">Star of the Seas &middot; Back to the Future opening night</span>
             </button>
           </div>
-          <div class="card-body"><h3>Back to the Future</h3><p>Royal Theater headline musical. This is the reserve-early show.</p></div>
+          <div class="card-body"><h3>Back to the Future</h3><p data-full-only>Royal Theater headline musical. This is the reserve-early show.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/onboard/food-and-beverage/dueling-pianos/icon-of-the-seas-dueling-pianos-performance-cocktails-nightlife-club.jpg?$440x880$" alt="Dueling Pianos performance">
-          <div class="card-body"><h3>Dueling Pianos</h3><p>Interactive sing-along piano bar energy for adults after dinner.</p></div>
+          <div class="card-body"><h3>Dueling Pianos</h3><p data-full-only>Interactive sing-along piano bar energy for adults after dinner.</p></div>
         </article>
         <article class="card">
           <div class="video-frame">
@@ -1581,11 +1518,11 @@
               <span class="vl-label">Star of the Seas &middot; Casino Royale walkthrough</span>
             </button>
           </div>
-          <div class="card-body"><h3>Casino Royale</h3><p>Slots, tables, tournaments and the grown-up late-night wander option.</p></div>
+          <div class="card-body"><h3>Casino Royale</h3><p data-full-only>Slots, tables, tournaments and the grown-up late-night wander option.</p></div>
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/ships/star/asset/star-of-the-seas-empire-supper-club-woman-cheering-champagne.jpg?$520x520$" alt="Supper club performance and champagne">
-          <div class="card-body"><h3>Lincoln Park Supper Club</h3><p>Dinner-and-show night with cocktails, live music and a more adult evening out.</p></div>
+          <div class="card-body"><h3>Lincoln Park Supper Club</h3><p data-full-only>Dinner-and-show night with cocktails, live music and a more adult evening out.</p></div>
         </article>
       </div>
     </section>
@@ -1593,11 +1530,7 @@
     <!-- =============================== FOOD =============================== -->
     <section id="food" class="tinted">
       <div class="section-head">
-        <div>
-          <span class="kicker">Dining</span>
-          <h2>Food and premium dining</h2>
-        </div>
-        <p>No buffet sales pitch. This section is about the better dining targets and how to book them without turning dinner into homework.</p>
+        <h2>Food</h2>
       </div>
       <div class="restaurant-grid">
         <article class="restaurant-card">
@@ -1612,7 +1545,7 @@
           <div class="rc-body">
             <span class="chip">Steakhouse</span>
             <h3>Chops Grille</h3>
-            <p>The obvious adult steak night. Best for a clean, predictable premium dinner.</p>
+            <p data-full-only>The obvious adult steak night. Best for a clean, predictable premium dinner.</p>
             <p class="vl-credit">Filmed on Star of the Seas &middot; <a href="https://www.youtube.com/watch?v=ePWG6tofLIM" target="_blank" rel="noopener">Watch on YouTube</a></p>
           </div>
         </article>
@@ -1628,7 +1561,7 @@
           <div class="rc-body">
             <span class="chip reef">Seafood</span>
             <h3>Hooked Seafood</h3>
-            <p>Raw bar, lobster roll, seafood plates and the AquaDome-adjacent dinner option.</p>
+            <p data-full-only>Raw bar, lobster roll, seafood plates and the AquaDome-adjacent dinner option.</p>
             <p class="vl-credit">Filmed on Star of the Seas &middot; <a href="https://www.youtube.com/watch?v=EuLnFZA56QE" target="_blank" rel="noopener">Watch on YouTube</a></p>
           </div>
         </article>
@@ -1644,7 +1577,7 @@
           <div class="rc-body">
             <span class="chip green">Show meal</span>
             <h3>Izumi Hibachi &amp; Sushi</h3>
-            <p>The easiest family specialty meal, because dinner itself becomes the entertainment.</p>
+            <p data-full-only>The easiest family specialty meal, because dinner itself becomes the entertainment.</p>
             <p class="vl-credit">Filmed on Star of the Seas &middot; <a href="https://www.youtube.com/watch?v=b6QqtDbRMcQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
           </div>
         </article>
@@ -1660,22 +1593,17 @@
           <div class="rc-body">
             <span class="chip sun">Italian</span>
             <h3>Giovanni&rsquo;s Italian Kitchen</h3>
-            <p>Safe group-friendly pick for pasta, wine and a lower-drama specialty dinner. On Star it sits on Deck&nbsp;6, off the Royal Promenade.</p>
+            <p data-full-only>Safe group-friendly pick for pasta, wine and a lower-drama specialty dinner. On Star it sits on Deck&nbsp;6, off the Royal Promenade.</p>
             <p class="vl-credit">Filmed on Icon of the Seas, Star&rsquo;s sister ship &middot; <a href="https://www.youtube.com/watch?v=wfl3JAVSZFI" target="_blank" rel="noopener">Watch on YouTube</a></p>
           </div>
         </article>
       </div>
-      <p class="note">Specialty restaurants open for booking well before sailing and the good times go first. Worth picking two or three nights as a group rather than nine people booking separately.</p>
     </section>
 
     <!-- ============================== VIDEOS ============================== -->
     <section id="videos">
       <div class="section-head">
-        <div>
-          <span class="kicker">Watch</span>
-          <h2>Ship videos</h2>
-        </div>
-        <p>All filmed on Star of the Seas. Press play to load one &mdash; they need an internet connection.</p>
+        <h2>Videos</h2>
       </div>
       <div class="video-grid">
         <article class="video-card">
@@ -1688,7 +1616,7 @@
             </button>
           </div>
           <h3>Star of the Seas</h3>
-          <p>Official Royal Caribbean overview of the ship, neighbourhoods, waterpark, dining and entertainment.</p>
+          <p data-full-only>Official Royal Caribbean overview of the ship, neighbourhoods, waterpark, dining and entertainment.</p>
         </article>
         <article class="video-card">
           <div class="video-frame">
@@ -1700,7 +1628,7 @@
             </button>
           </div>
           <h3>Hyperlapse tour</h3>
-          <p>Quick 1:23 walkthrough that gives people the scale of the ship without a long promo.</p>
+          <p data-full-only>Quick 1:23 walkthrough that gives people the scale of the ship without a long promo.</p>
         </article>
         <article class="video-card">
           <div class="video-frame">
@@ -1712,7 +1640,7 @@
             </button>
           </div>
           <h3>Every cabin type</h3>
-          <p>Walkthrough of 30 Star of the Seas cabins if anyone wants to compare our rooms against the rest of the ship.</p>
+          <p data-full-only>Walkthrough of 30 Star of the Seas cabins if anyone wants to compare our rooms against the rest of the ship.</p>
         </article>
       </div>
     </section>
@@ -1749,9 +1677,9 @@
       </div>
     </div>
     <p class="footer-note">
-      Simple view is the default. Switch to <strong>Full</strong> in the top bar for the ship
-      neighbourhoods, the kids and waterpark section, the room walkthrough videos and the extra
-      hotel, flight and cabana notes.
+      Simple view is the default and sticks to the facts. Switch to <strong>Full</strong> in the
+      top bar for descriptions, the ship neighbourhoods and kids sections, the room walkthrough
+      videos, and the hotel, flight and cabana notes.
       Single-file HTML trip brief &mdash; open it in any browser, or print it straight to PDF.
       Videos are third-party walkthroughs and reviews filmed on Star of the Seas (or Icon of the
       Seas where noted) and load only when you press play. Confirm room details, suite perks and
