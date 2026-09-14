@@ -10,6 +10,17 @@
   <meta property="og:title" content="Star of the Seas family cruise">
   <meta property="og:description" content="March 28 to April 4, 2027 Western Caribbean sailing for three families, in three Sky Junior Suites on Deck 10.">
   <meta property="og:type" content="website">
+  <script>
+    /* Open at the top every time. Two things move the start position
+       otherwise: the browser restoring the last scroll offset on reload, and
+       a leftover #hash from a nav click in an earlier visit. Clearing the
+       hash here, before the document is parsed, means the browser never
+       makes the jump rather than us undoing it afterwards. */
+    try {
+      history.scrollRestoration = 'manual';
+      if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    } catch (e) {}
+  </script>
   <style>
     /* ---------------------------------------------------------------
        Design tokens
@@ -1739,6 +1750,18 @@
 
         sections.forEach(function (section) { observer.observe(section); });
       }
+
+      /* Scroll to the section without putting a #hash in the URL — otherwise
+         one nav click decides where every later load of this page starts.
+         section { scroll-margin-top } keeps the sticky nav from covering it. */
+      links.forEach(function (link) {
+        link.addEventListener('click', function (event) {
+          var target = document.getElementById(link.getAttribute('href').slice(1));
+          if (!target) return;
+          event.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
 
       /* ---- click-to-load YouTube: swap the facade for a real iframe ---- */
       document.addEventListener('click', function (event) {
