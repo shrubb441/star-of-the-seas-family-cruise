@@ -264,31 +264,38 @@
     .btn:hover { transform: translateY(-2px); }
     .btn-ghost:hover { background: rgba(255, 255, 255, .18); }
 
-    .quickbar {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
-      gap: 12px;
-      max-width: 1050px;
-    }
-    .quick {
-      border: 1px solid rgba(255, 255, 255, .22);
-      background: rgba(6, 16, 26, .42);
+    .countdown-feature {
+      display: inline-block;
+      border: 1px solid rgba(255, 255, 255, .24);
+      background: rgba(6, 16, 26, .48);
       backdrop-filter: blur(10px);
-      padding: 14px 16px;
-      border-radius: var(--r-md);
+      padding: 24px 34px 26px;
+      border-radius: var(--r-lg);
+      max-width: 100%;
     }
-    .quick b {
+    .countdown-feature b {
       display: block;
-      font-size: 19px;
-      line-height: 1.15;
+      font-size: clamp(54px, 10vw, 94px);
+      line-height: .95;
+      letter-spacing: -.03em;
+      font-variant-numeric: tabular-nums;
     }
-    .quick span {
+    /* "Tomorrow" needs to fit where "196" sat */
+    .countdown-feature.is-word b { font-size: clamp(34px, 6.5vw, 58px); }
+    .countdown-unit {
       display: block;
-      color: rgba(255, 255, 255, .74);
-      font-size: 12.5px;
-      margin-top: 5px;
+      color: rgba(255, 255, 255, .8);
+      font-size: 13px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-top: 14px;
     }
-    .quick.countdown b { font-variant-numeric: tabular-nums; }
+    .countdown-date {
+      display: block;
+      color: rgba(255, 255, 255, .6);
+      font-size: 13.5px;
+      margin-top: 6px;
+    }
 
     /* ---------------------------------------------------------------
        Nav
@@ -405,7 +412,7 @@
     .itinerary > *, .roomtype > *,
     .snapshot-grid > *, .room-strip > *, .port-map > *,
     .restaurant-grid > *, .video-grid > *, .image-strip > *,
-    .quickbar > *, .day > *, .footer-grid > * { min-width: 0; }
+    .day > *, .footer-grid > * { min-width: 0; }
 
     .card {
       background: var(--panel);
@@ -555,21 +562,6 @@
     @media (prefers-color-scheme: dark) {
       .room-number { color: var(--ink); }
     }
-    .room-meta {
-      display: grid;
-      gap: 6px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 15px;
-    }
-    .room-meta div { display: flex; gap: 8px; }
-    .room-meta dt {
-      flex: 0 0 88px;
-      font-weight: 700;
-      color: var(--ink-soft);
-    }
-    .room-meta dd { margin: 0; }
-
     /* quick-reference table */
     .table-wrap {
       overflow-x: auto;
@@ -990,14 +982,6 @@
     }
     .footer-grid ul { margin: 0; padding-left: 18px; }
     .footer-grid li { margin: 7px 0; }
-    .footer-note {
-      margin-top: 30px;
-      padding-top: 18px;
-      border-top: 1px solid rgba(255, 255, 255, .14);
-      font-size: 13.5px;
-      color: rgba(255, 255, 255, .55);
-      max-width: var(--wrap);
-    }
 
     .to-top {
       position: fixed;
@@ -1037,7 +1021,6 @@
       body { font-size: 16px; }
       .mode-switch button { padding: 6px 10px; font-size: 12px; }
       .day { grid-template-columns: 1fr; gap: 6px; }
-      .room-meta dt { flex-basis: 78px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1053,9 +1036,9 @@
       body { background: #fff; color: #000; font-size: 11pt; }
       section { padding: 18px 0; break-inside: avoid; }
       .hero { min-height: auto; color: #000; background: none; padding: 0 0 18px; }
-      .hero-lede, .eyebrow, .quick span { color: #333; }
-      .quick { border-color: #999; background: none; }
-      .quick b, .hero h1 { color: #000; }
+      .hero-lede, .eyebrow, .countdown-unit, .countdown-date { color: #333; }
+      .countdown-feature { border-color: #999; background: none; }
+      .countdown-feature b, .hero h1 { color: #000; }
       .card, .panel, .room-card, .port, .day, .snapshot-tile { box-shadow: none; break-inside: avoid; }
     }
   </style>
@@ -1077,11 +1060,10 @@
         <a class="btn btn-primary" href="#rooms">Who&rsquo;s in which room</a>
         <a class="btn btn-ghost" href="#itinerary">Day-by-day itinerary</a>
       </div>
-      <div class="quickbar">
-        <div class="quick"><b>3 families</b><span>Matt &amp; Steph, Kris &amp; Tariq, Peter &amp; Judy</span></div>
-        <div class="quick"><b>3 suites</b><span>Deck 10 &middot; all Sky Junior Suites</span></div>
-        <div class="quick"><b>7 nights</b><span>Port Canaveral round trip</span></div>
-        <div class="quick countdown"><b id="countdown">&mdash;</b><span>until sail day</span></div>
+      <div class="countdown-feature" id="countdownCard">
+        <b id="countdown">&mdash;</b>
+        <span class="countdown-unit" id="countdownUnit">until we fly out</span>
+        <span class="countdown-date">Saturday 27 March 2027 &middot; BDA &rarr; Orlando</span>
       </div>
     </div>
   </header>
@@ -1147,12 +1129,6 @@
         </div>
       </div>
 
-      <p class="note">
-        Booking reference: group ID <strong>ST07PCN-2334033785</strong> &mdash;
-        <a href="https://www.royalcaribbean.com/itinerary/7-night-western-caribbean-perfect-day-from-orlando-port-canaveral-on-star-ST07PCN-2334033785?groupId=ST07PCN-2334033785&amp;country=USA&amp;sailDate=2027-03-28" target="_blank" rel="noopener">Royal Caribbean itinerary page for the Mar 28, 2027 sailing</a>.
-        The old August booking used package code ST07W772; the March sailing runs the ports in a different
-        order, so confirm the current package code against the booking confirmation.
-      </p>
     </section>
 
     <!-- ============================== ROOMS ============================== -->
@@ -1166,30 +1142,18 @@
           <span class="chip sun">Sky Junior Suite</span>
           <h3>Kris &amp; Tariq</h3>
           <div class="room-number">10530</div>
-          <dl class="room-meta">
-            <div><dt>Deck</dt><dd>Deck 10</dd></div>
-            <div><dt>Type</dt><dd>Sky Junior Suite</dd></div>
-          </dl>
         </article>
 
         <article class="room-card suite">
           <span class="chip sun">Sky Junior Suite</span>
           <h3>Matt &amp; Steph</h3>
           <div class="room-number">10532</div>
-          <dl class="room-meta">
-            <div><dt>Deck</dt><dd>Deck 10</dd></div>
-            <div><dt>Type</dt><dd>Sky Junior Suite</dd></div>
-          </dl>
         </article>
 
         <article class="room-card suite">
           <span class="chip sun">Sky Junior Suite</span>
           <h3>Peter &amp; Judy</h3>
           <div class="room-number">10536</div>
-          <dl class="room-meta">
-            <div><dt>Deck</dt><dd>Deck 10</dd></div>
-            <div><dt>Type</dt><dd>Sky Junior Suite</dd></div>
-          </dl>
         </article>
       </div>
 
@@ -1735,16 +1699,6 @@
         </ul>
       </div>
     </div>
-    <p class="footer-note">
-      Full view is the default and shows everything: descriptions, the room and suite
-      walkthrough videos, the ship neighbourhoods and kids sections, and the hotel, flight and
-      cabana notes. Switch to <strong>Simple</strong> in the top bar to strip it back to the
-      facts and the videos.
-      Single-file HTML trip brief &mdash; open it in any browser, or print it straight to PDF.
-      Videos are third-party walkthroughs and reviews filmed on Star of the Seas (or Icon of the
-      Seas where noted) and load only when you press play. Confirm room details, suite perks and
-      hotel shuttle times directly with Royal Caribbean and the hotel.
-    </p>
   </footer>
 
   <button class="to-top" id="toTop" type="button" aria-label="Back to top">&uarr;</button>
@@ -1862,12 +1816,22 @@
         });
       });
 
-      /* ---- countdown to sail day ---- */
+      /* ---- countdown to the day we fly out ---- */
       var countdown = document.getElementById('countdown');
+      var countdownUnit = document.getElementById('countdownUnit');
+      var countdownCard = document.getElementById('countdownCard');
       if (countdown) {
-        var sail = new Date('2027-03-28T16:30:00-04:00');
-        var days = Math.ceil((sail - new Date()) / 86400000);
-        countdown.textContent = days > 1 ? days + ' days' : (days === 1 ? 'Tomorrow' : 'Sailing!');
+        var depart = new Date('2027-03-27T00:00:00-04:00');
+        var days = Math.ceil((depart - new Date()) / 86400000);
+        var big, unit;
+        if (days > 1)        { big = String(days); unit = 'days until we fly out'; }
+        else if (days === 1) { big = 'Tomorrow';   unit = 'we fly out'; }
+        else if (days === 0) { big = 'Today';      unit = 'we fly out'; }
+        else                 { big = 'Bon voyage'; unit = 'the trip is under way'; }
+        countdown.textContent = big;
+        if (countdownUnit) countdownUnit.textContent = unit;
+        /* a word needs a smaller size than a 3-digit number */
+        if (countdownCard) countdownCard.classList.toggle('is-word', days <= 1);
       }
     })();
   </script>
