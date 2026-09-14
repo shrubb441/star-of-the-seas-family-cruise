@@ -11,14 +11,15 @@
   <meta property="og:description" content="March 28 to April 4, 2027 Western Caribbean sailing for three families, in three Sky Junior Suites on Deck 10.">
   <meta property="og:type" content="website">
   <script>
-    /* Runs before paint: simple view is the default, but honour ?view=full
+    /* Runs before paint: full view is the default, but honour ?view=simple
        and whatever the reader picked last time. */
     (function () {
+      var mode = 'full';
       try {
         var q = new URLSearchParams(location.search).get('view');
-        var saved = q || localStorage.getItem('sots-view');
-        if (saved === 'full') document.documentElement.className += ' mode-full';
+        mode = q || localStorage.getItem('sots-view') || 'full';
       } catch (e) {}
+      if (mode !== 'simple') document.documentElement.className += ' mode-full';
     })();
   </script>
   <style>
@@ -1099,8 +1100,8 @@
         <a href="#videos">Videos</a>
       </nav>
       <div class="mode-switch" role="group" aria-label="How much detail to show">
-        <button type="button" data-mode="simple" aria-pressed="true">Simple</button>
-        <button type="button" data-mode="full" aria-pressed="false">Full</button>
+        <button type="button" data-mode="simple" aria-pressed="false">Simple</button>
+        <button type="button" data-mode="full" aria-pressed="true">Full</button>
       </div>
     </div>
   </div>
@@ -1735,9 +1736,10 @@
       </div>
     </div>
     <p class="footer-note">
-      Simple view is the default and sticks to the facts, including the room and suite
-      walkthrough videos. Switch to <strong>Full</strong> in the top bar for descriptions, the
-      ship neighbourhoods and kids sections, and the hotel, flight and cabana notes.
+      Full view is the default and shows everything: descriptions, the room and suite
+      walkthrough videos, the ship neighbourhoods and kids sections, and the hotel, flight and
+      cabana notes. Switch to <strong>Simple</strong> in the top bar to strip it back to the
+      facts and the videos.
       Single-file HTML trip brief &mdash; open it in any browser, or print it straight to PDF.
       Videos are third-party walkthroughs and reviews filmed on Star of the Seas (or Icon of the
       Seas where noted) and load only when you press play. Confirm room details, suite perks and
