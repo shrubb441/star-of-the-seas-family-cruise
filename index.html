@@ -573,6 +573,34 @@
       font-size: 17px;
     }
 
+    /* kids club schedule bits */
+    .subhead[id] { scroll-margin-top: calc(var(--nav-h) + 12px); }
+    table.ref tbody th { font-weight: 800; white-space: nowrap; }
+    table.ref tbody th small {
+      display: block;
+      margin-top: 3px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    table.ref tbody tr.is-sea { background: var(--navy-tint); }
+    table.ref td.closed { color: var(--muted); }
+    table.ref .paid {
+      display: block;
+      margin-top: 5px;
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    table.ref.hours { min-width: 760px; }
+    .section-lede {
+      max-width: 72ch;
+      margin: 0 0 var(--gap);
+      color: var(--muted);
+      font-size: 16.5px;
+    }
+
     /* room type blocks */
     .roomtype {
       display: grid;
@@ -715,6 +743,7 @@
       background: var(--sea);
     }
     .feature-list.sun li::before { background: var(--sun); }
+    .feature-list.green li::before { background: var(--green); }
 
     /* ---------------------------------------------------------------
        Itinerary
@@ -963,6 +992,36 @@
     /* ---------------------------------------------------------------
        Responsive
     ---------------------------------------------------------------- */
+    @media (max-width: 700px) {
+      .table-wrap.hours-wrap { overflow-x: visible; border: 0; background: none; box-shadow: none; }
+      table.ref.hours { min-width: 0; display: block; }
+      table.ref.hours caption { display: block; width: 100%; padding: 0 0 12px; }
+      table.ref.hours thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+      table.ref.hours tbody, table.ref.hours tr { display: block; }
+      table.ref.hours tr {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--r-lg);
+        box-shadow: var(--shadow-sm);
+        padding: 4px 16px 12px;
+        margin-bottom: 12px;
+      }
+      table.ref.hours tr.is-sea { background: var(--panel-soft); }
+      table.ref.hours th, table.ref.hours td { display: block; padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
+      table.ref.hours tbody th { border-bottom: 1px solid var(--line); font-size: 17px; white-space: normal; }
+      table.ref.hours td:last-child { border-bottom: 0; }
+      table.ref.hours td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 3px;
+        font-size: 11.5px;
+        font-weight: 800;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+    }
+
     @media (max-width: 900px) {
       .itinerary, .roomtype { grid-template-columns: 1fr; }
       .feature-img { min-height: 260px; max-height: 420px; }
@@ -994,6 +1053,9 @@
       .countdown-feature { border-color: #999; background: none; }
       .countdown-feature b, .hero h1 { color: #000; }
       .card, .panel, .room-card, .port, .day, .snapshot-tile { box-shadow: none; break-inside: avoid; }
+      .table-wrap { overflow: visible; box-shadow: none; }
+      table.ref, table.ref.hours { min-width: 0; font-size: 9pt; }
+      table.ref th, table.ref td { padding: 6px 8px; }
     }
   </style>
 </head>
@@ -1470,8 +1532,120 @@
         </article>
         <article class="card">
           <img class="card-media" loading="lazy" decoding="async" data-fallback="hide" src="https://assets.dm.rccl.com/is/image/RoyalCaribbeanCruises/royal/onboard/experiences/adventure-ocean/icon-of-the-seas-adventure-ocean-interactive-games.jpg?$440x880$" alt="Adventure Ocean kids club interactive games">
-          <div class="card-body"><h3>Adventure Ocean</h3><p>Royal&rsquo;s kids club programming. Useful for adult dinners, decompression and letting the kids split by age.</p></div>
+          <div class="card-body"><h3>Adventure Ocean</h3><p>Royal&rsquo;s kids club programming for ages 3 to 11, split into age groups. <a href="#kidsclub">Daily hours below</a>.</p></div>
         </article>
+      </div>
+
+      <h3 class="subhead" id="kidsclub">Kids club hours, day by day</h3>
+      <p class="section-lede">
+        Adventure Ocean runs in blocks rather than all day, and the blocks shift between sea days
+        and port days. This is the pattern to plan dinners and excursions around.
+      </p>
+
+      <div class="table-wrap hours-wrap">
+        <table class="ref hours">
+          <caption>Adventure Ocean and teen hours &middot; expected pattern, Mar 28 &ndash; Apr 4</caption>
+          <thead>
+            <tr>
+              <th scope="col">Day</th>
+              <th scope="col">Ages 3&ndash;11 &middot; Adventure Ocean</th>
+              <th scope="col">Ages 12&ndash;17 &middot; teen space</th>
+              <th scope="col">6&ndash;36 months &middot; nursery</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Sun Mar 28<small>Day 1 &middot; embark</small></th>
+              <td data-label="Ages 3&ndash;11">Open house 1:00 &ndash; 4:00 PM, then 7:00 &ndash; 10:00 PM</td>
+              <td data-label="Ages 12&ndash;17">Teen meet-up from about 8:00 PM</td>
+              <td data-label="Under 3" class="closed">Register on board first, evening only</td>
+            </tr>
+            <tr class="is-sea">
+              <th scope="row">Mon Mar 29<small>Day 2 &middot; sea day</small></th>
+              <td data-label="Ages 3&ndash;11">9:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
+              <td data-label="Ages 12&ndash;17">Daytime drop-in plus 7:00 PM &ndash; 1:00 AM</td>
+              <td data-label="Under 3">9:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Tue Mar 30<small>Day 3 &middot; Costa Maya</small></th>
+              <td data-label="Ages 3&ndash;11">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
+              <td data-label="Ages 12&ndash;17">Evening only, about 7:00 PM &ndash; 1:00 AM</td>
+              <td data-label="Under 3">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Wed Mar 31<small>Day 4 &middot; Roat&aacute;n</small></th>
+              <td data-label="Ages 3&ndash;11">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
+              <td data-label="Ages 12&ndash;17">Evening only, about 7:00 PM &ndash; 1:00 AM</td>
+              <td data-label="Under 3">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Thu Apr 1<small>Day 5 &middot; Cozumel</small></th>
+              <td data-label="Ages 3&ndash;11">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
+              <td data-label="Ages 12&ndash;17">Evening only, about 7:00 PM &ndash; 1:00 AM</td>
+              <td data-label="Under 3">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+            </tr>
+            <tr class="is-sea">
+              <th scope="row">Fri Apr 2<small>Day 6 &middot; sea day</small></th>
+              <td data-label="Ages 3&ndash;11">9:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
+              <td data-label="Ages 12&ndash;17">Daytime drop-in plus 7:00 PM &ndash; 1:00 AM</td>
+              <td data-label="Under 3">9:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Sat Apr 3<small>Day 7 &middot; CocoCay</small></th>
+              <td data-label="Ages 3&ndash;11">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
+              <td data-label="Ages 12&ndash;17">Evening only, about 7:00 PM &ndash; 1:00 AM</td>
+              <td data-label="Under 3">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Sun Apr 4<small>Day 8 &middot; disembark</small></th>
+              <td data-label="Ages 3&ndash;11" class="closed">Closed &mdash; alongside 6:00 AM</td>
+              <td data-label="Ages 12&ndash;17" class="closed">Closed</td>
+              <td data-label="Under 3" class="closed">Closed</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note">
+        These are Royal&rsquo;s usual Adventure Ocean blocks, not the published schedule for this
+        sailing &mdash; that only exists closer to the date. The exact times for each day land in the
+        Cruise Compass in the Royal Caribbean app the evening before, so check the app on the day
+        before anyone relies on a pickup time.
+      </p>
+
+      <div class="grid-3" style="margin-top:var(--gap);">
+        <div class="panel accent">
+          <span class="chip">Day one</span>
+          <h3 style="margin-top:12px;">Register before anything else</h3>
+          <p>Kids have to be registered before their first drop-off, and day one is the queue. Do it at the open house in the afternoon.</p>
+          <ul class="feature-list">
+            <li>Bring each child &mdash; they get banded and assigned an age group</li>
+            <li>Set the sign-out rule: adults only, or the child can leave alone</li>
+            <li>Give a phone or stateroom number they can reach during dinner</li>
+            <li>Under 3 needs the nursery booked separately, and it fills</li>
+          </ul>
+        </div>
+        <div class="panel accent green">
+          <span class="chip green">Cost</span>
+          <h3 style="margin-top:12px;">Free until 10:00 PM</h3>
+          <p>Every daytime and evening block for ages 3 to 11 is included in the fare. Two things are not.</p>
+          <ul class="feature-list green">
+            <li>Late Night Party Zone after 10:00 PM, charged per child per hour</li>
+            <li>The nursery for under 3s, charged per hour and reservation only</li>
+            <li>Lunch and dinner sessions in the club, where offered, can carry a small charge</li>
+          </ul>
+        </div>
+        <div class="panel accent sun">
+          <span class="chip sun">Adult nights</span>
+          <h3 style="margin-top:12px;">The 7:00 to 10:00 PM window</h3>
+          <p>Three hours a night, every night except the last, is the whole adults-only dinner plan.</p>
+          <ul class="feature-list sun">
+            <li>Drop at 7:00 PM, book Chops, Hooked or Izumi for 7:30 PM</li>
+            <li>Back by 10:00 PM or the late-night hourly rate starts</li>
+            <li>Sea days also give a 2:00 to 5:00 PM block for the Hideaway</li>
+            <li>Port days lose the teen daytime hours &mdash; teens are ashore or on the ship anyway</li>
+          </ul>
+        </div>
       </div>
     </section>
 
