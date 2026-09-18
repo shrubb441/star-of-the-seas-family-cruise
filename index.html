@@ -593,7 +593,7 @@
       font-size: 12.5px;
       color: var(--muted);
     }
-    table.ref.hours { min-width: 760px; }
+    table.ref.hours { min-width: 0; }
     .section-lede {
       max-width: 72ch;
       margin: 0 0 var(--gap);
@@ -992,34 +992,14 @@
     /* ---------------------------------------------------------------
        Responsive
     ---------------------------------------------------------------- */
-    @media (max-width: 700px) {
-      .table-wrap.hours-wrap { overflow-x: visible; border: 0; background: none; box-shadow: none; }
-      table.ref.hours { min-width: 0; display: block; }
-      table.ref.hours caption { display: block; width: 100%; padding: 0 0 12px; }
-      table.ref.hours thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-      table.ref.hours tbody, table.ref.hours tr { display: block; }
-      table.ref.hours tr {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: var(--r-lg);
-        box-shadow: var(--shadow-sm);
-        padding: 4px 16px 12px;
-        margin-bottom: 12px;
-      }
-      table.ref.hours tr.is-sea { background: var(--panel-soft); }
-      table.ref.hours th, table.ref.hours td { display: block; padding: 10px 0; border-bottom: 1px solid var(--line-soft); }
-      table.ref.hours tbody th { border-bottom: 1px solid var(--line); font-size: 17px; white-space: normal; }
-      table.ref.hours td:last-child { border-bottom: 0; }
-      table.ref.hours td::before {
-        content: attr(data-label);
-        display: block;
-        margin-bottom: 3px;
-        font-size: 11.5px;
-        font-weight: 800;
-        letter-spacing: .09em;
-        text-transform: uppercase;
-        color: var(--muted);
-      }
+    /* two narrow columns squeeze the times into a ribbon on a phone,
+       so stack the day above its hours instead */
+    @media (max-width: 620px) {
+      table.ref.hours, table.ref.hours caption, table.ref.hours tbody,
+      table.ref.hours tr, table.ref.hours th, table.ref.hours td { display: block; }
+      table.ref.hours thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      table.ref.hours tbody th { padding-bottom: 0; border-bottom: 0; white-space: normal; }
+      table.ref.hours tbody td { padding-top: 8px; }
     }
 
     @media (max-width: 900px) {
@@ -1542,65 +1522,47 @@
         and port days. This is the pattern to plan dinners and excursions around.
       </p>
 
-      <div class="table-wrap hours-wrap">
+      <div class="table-wrap">
         <table class="ref hours">
-          <caption>Adventure Ocean and teen hours &middot; expected pattern, Mar 28 &ndash; Apr 4</caption>
+          <caption>Adventure Ocean, ages 3&ndash;11 &middot; expected pattern, Mar 28 &ndash; Apr 4</caption>
           <thead>
             <tr>
               <th scope="col">Day</th>
-              <th scope="col">Ages 3&ndash;11 &middot; Adventure Ocean</th>
-              <th scope="col">Ages 12&ndash;17 &middot; teen space</th>
-              <th scope="col">6&ndash;36 months &middot; nursery</th>
+              <th scope="col">Opening hours</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th scope="row">Sun Mar 28<small>Day 1 &middot; embark</small></th>
-              <td data-label="Ages 3&ndash;11">Open house 1:00 &ndash; 4:00 PM, then 7:00 &ndash; 10:00 PM</td>
-              <td data-label="Ages 12&ndash;17">Teen meet-up from about 8:00 PM</td>
-              <td data-label="Under 3" class="closed">Register on board first, evening only</td>
+              <td>Open house 1:00 &ndash; 4:00 PM, then 7:00 &ndash; 10:00 PM</td>
             </tr>
             <tr class="is-sea">
               <th scope="row">Mon Mar 29<small>Day 2 &middot; sea day</small></th>
-              <td data-label="Ages 3&ndash;11">9:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
-              <td data-label="Ages 12&ndash;17">Daytime drop-in plus 7:00 PM &ndash; 1:00 AM</td>
-              <td data-label="Under 3">9:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+              <td>9:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
             </tr>
             <tr>
               <th scope="row">Tue Mar 30<small>Day 3 &middot; Costa Maya</small></th>
-              <td data-label="Ages 3&ndash;11">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
-              <td data-label="Ages 12&ndash;17">Evening only, about 7:00 PM &ndash; 1:00 AM</td>
-              <td data-label="Under 3">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+              <td>8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
             </tr>
             <tr>
               <th scope="row">Wed Mar 31<small>Day 4 &middot; Roat&aacute;n</small></th>
-              <td data-label="Ages 3&ndash;11">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
-              <td data-label="Ages 12&ndash;17">Evening only, about 7:00 PM &ndash; 1:00 AM</td>
-              <td data-label="Under 3">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+              <td>8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
             </tr>
             <tr>
               <th scope="row">Thu Apr 1<small>Day 5 &middot; Cozumel</small></th>
-              <td data-label="Ages 3&ndash;11">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
-              <td data-label="Ages 12&ndash;17">Evening only, about 7:00 PM &ndash; 1:00 AM</td>
-              <td data-label="Under 3">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+              <td>8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
             </tr>
             <tr class="is-sea">
               <th scope="row">Fri Apr 2<small>Day 6 &middot; sea day</small></th>
-              <td data-label="Ages 3&ndash;11">9:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
-              <td data-label="Ages 12&ndash;17">Daytime drop-in plus 7:00 PM &ndash; 1:00 AM</td>
-              <td data-label="Under 3">9:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+              <td>9:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
             </tr>
             <tr>
               <th scope="row">Sat Apr 3<small>Day 7 &middot; CocoCay</small></th>
-              <td data-label="Ages 3&ndash;11">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
-              <td data-label="Ages 12&ndash;17">Evening only, about 7:00 PM &ndash; 1:00 AM</td>
-              <td data-label="Under 3">8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 6:00 PM &ndash; midnight<span class="paid">Hourly rate, book ahead</span></td>
+              <td>8:00 AM &ndash; 12:00 PM, 2:00 &ndash; 5:00 PM, 7:00 &ndash; 10:00 PM<span class="paid">Late Night Party Zone 10:00 PM &ndash; 1:00 AM, charged by the hour</span></td>
             </tr>
             <tr>
               <th scope="row">Sun Apr 4<small>Day 8 &middot; disembark</small></th>
-              <td data-label="Ages 3&ndash;11" class="closed">Closed &mdash; alongside 6:00 AM</td>
-              <td data-label="Ages 12&ndash;17" class="closed">Closed</td>
-              <td data-label="Under 3" class="closed">Closed</td>
+              <td class="closed">Closed &mdash; alongside 6:00 AM</td>
             </tr>
           </tbody>
         </table>
@@ -1622,16 +1584,15 @@
             <li>Bring each child &mdash; they get banded and assigned an age group</li>
             <li>Set the sign-out rule: adults only, or the child can leave alone</li>
             <li>Give a phone or stateroom number they can reach during dinner</li>
-            <li>Under 3 needs the nursery booked separately, and it fills</li>
+            <li>Ask which group each child lands in &mdash; 3&ndash;5, 6&ndash;8 or 9&ndash;11</li>
           </ul>
         </div>
         <div class="panel accent green">
           <span class="chip green">Cost</span>
           <h3 style="margin-top:12px;">Free until 10:00 PM</h3>
-          <p>Every daytime and evening block for ages 3 to 11 is included in the fare. Two things are not.</p>
+          <p>Every daytime and evening block is included in the fare. The late slot is not.</p>
           <ul class="feature-list green">
             <li>Late Night Party Zone after 10:00 PM, charged per child per hour</li>
-            <li>The nursery for under 3s, charged per hour and reservation only</li>
             <li>Lunch and dinner sessions in the club, where offered, can carry a small charge</li>
           </ul>
         </div>
@@ -1643,7 +1604,7 @@
             <li>Drop at 7:00 PM, book Chops, Hooked or Izumi for 7:30 PM</li>
             <li>Back by 10:00 PM or the late-night hourly rate starts</li>
             <li>Sea days also give a 2:00 to 5:00 PM block for the Hideaway</li>
-            <li>Port days lose the teen daytime hours &mdash; teens are ashore or on the ship anyway</li>
+            <li>Port days start an hour earlier, so an early excursion still works</li>
           </ul>
         </div>
       </div>
